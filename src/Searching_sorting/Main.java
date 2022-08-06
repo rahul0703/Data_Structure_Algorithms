@@ -24,5 +24,6 @@ public class Main {
     public static void maxGapBwAdEleInSrtdFrm(int[] array){
         Utility utility = new Utility();
 
+
     }
 }
