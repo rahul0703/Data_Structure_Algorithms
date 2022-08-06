@@ -51,6 +51,8 @@ public class Utility {
                 2. noOfBucket = (max - min)/avgGap + 1;
                 3. bucketNumber = (num - min)/avgGap;
         */
+
+
         return -1;
     }
 

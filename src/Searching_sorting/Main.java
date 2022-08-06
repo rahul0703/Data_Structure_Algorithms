@@ -23,7 +23,7 @@ public class Main {
 
     public static void maxGapBwAdEleInSrtdFrm(int[] array){
         Utility utility = new Utility();
-
-
+        int answer = utility.maxGapBwAdEleInSrtdFrm(array);
+        System.out.println("maxGapBwAdEleInSrtdFrm : maximum gap :: " + answer);
     }
 }
