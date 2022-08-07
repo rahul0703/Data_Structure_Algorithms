@@ -94,5 +94,49 @@ public class Utility {
         return maxDiffInSotdForm;
     }
 
+    public ArrayList<Integer> missingAndRepeatingNumberInArray(int[] nums){
+        /*
+            Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n}
+            is missing and one number occurs twice in the array. Find these two numbers
+
+            GFG : https://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/
+
+            This is a classic Bit Manupulation question, but this can also be solved by dummy indexing method.
+
+            Approach :
+                Mod(nums[i]) = x;
+                nums[x-1] = -nums[x-1];
+                this way, the postive element index will be missing one and the one which is already negative will be negative one.
+         Time Cmplx: O(n)
+         Space Cmplx : O(1)
+         */
+        ArrayList<Integer> answer = new ArrayList<>(Arrays.asList(0, 0));
+        Integer missing = -1;
+        Integer repeating = -1;
+        for(int i = 0; i < nums.length; i++){
+            int num = Math.abs(nums[i]);
+            int idx = num-1;
+            if(nums[idx] < 0){
+                repeating = num;
+                continue;
+            }
+            nums[idx] = -1 * nums[idx];
+        }
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] > 0){
+                missing = i+1;
+            }
+        }
+        answer.add(0, missing);
+        answer.add(1, repeating);
+        return answer;
+    }
+
+    public ArrayList<Integer> findCeilAndFloorOfXinSrtdArray(int[] nums, int x){
+        /*
+
+         */
+        return new ArrayList<>();
+    }
 
 }
