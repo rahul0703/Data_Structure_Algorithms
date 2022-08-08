@@ -16,8 +16,9 @@ public class Main {
         }
         int x = scanner.nextInt();
 
-        binarySearch2(array, x);
+//        binarySearch2(array, x);
 //        missingAndRepeatingNumberInArray(array);
+        combintionOf4SumEuqalsX(array, x);
     }
 
     public static void searching_sorting(int[] array){
@@ -49,4 +50,20 @@ public class Main {
         int answer = binarySearch.binarySearch2(array, num);
         System.out.println("binarySearch2 : answer :: " + answer);
     }
+
+    public static void findUniquePairWithGivenDiffInArr(int[] array, int num){
+        Utility utility = new Utility();
+        int answer = utility.findUniquePairWithGivenDiffInArr(array, num);
+        System.out.println("findUniquePairWithGivenDiffInArr : answer :: " + answer);
+    }
+
+    public static void combintionOf4SumEuqalsX(int[] nums, int target){
+        Utility utility = new Utility();
+        ArrayList<String> answer = utility.combintionOf4SumEuqalsX(nums, target);
+        System.out.println("combintionOf4SumEuqalsX : combinations :: ");
+        for(String subAns : answer){
+            System.out.println(subAns);
+        }
+    }
+
 }

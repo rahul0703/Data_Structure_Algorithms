@@ -1,7 +1,10 @@
 package Searching_sorting;
 
 import Searching_sorting.Implementation.Binary_search;
+import Searching_sorting.types.Pair;
+import com.sun.org.apache.regexp.internal.RE;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Utility {
@@ -143,6 +146,9 @@ public class Utility {
             Leetcode : https://leetcode.com/problems/search-insert-position/
 
             This a classical binary search question, if element is found the return pos or return pos where it would be inserted.
+
+            Time Cmplx : O(logn)
+            space Complx : O(1)
          */
         Binary_search binarySearch = new Binary_search();
 
@@ -150,4 +156,143 @@ public class Utility {
         return new ArrayList<>(Arrays.asList(index-1, index));
     }
 
+    public int findUniquePairWithGivenDiffInArr(int[] nums, int diff){
+        /*
+            Given an array of integers nums and an integer k, return the number of unique k-diff pairs in the array.
+
+            A k-diff pair is an integer pair (nums[i], nums[j]), where the following are true:
+
+            0 <= i, j < nums.length
+            i != j
+            nums[i] - nums[j] == k
+            Notice that |val| denotes the absolute value of val
+
+            Leetcode : https://leetcode.com/problems/k-diff-pairs-in-an-array/
+
+            Approach : 1. using sorting : sort the array and applying sliding window.
+                            Time Cmplx : O(nlogn)
+                            space Cmplx : O(1)
+         */
+        return findUniquePairWithGivenDiffInArrSorting(nums, diff);
+
+    }
+
+    public int findUniquePairWithGivenDiffInArrSorting(int[] nums, int diff){
+        Arrays.sort(nums);
+        int left = 0;
+        int right = 1;
+        int count = 0;
+        int prevRight = Integer.MIN_VALUE;
+        while(right < nums.length){
+            if(left > right){
+                right++;
+                continue;
+            }
+            int diffIter = nums[right] - nums[left];
+            if(diffIter < diff){
+                right++;
+            }else if(diffIter == diff){
+                if(prevRight != nums[right] && left != right){
+                    prevRight = nums[right];
+                    count++;
+                }
+                if(left == right){
+                    right++;
+                }else{
+                    left++;
+                }
+            }else{
+                left++;
+            }
+        }
+        return count;
+    }
+
+    public ArrayList<String> combintionOf4SumEuqalsX(int[] nums, int x){
+        /*
+            Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+
+            0 <= a, b, c, d < n
+            a, b, c, and d are distinct.
+            nums[a] + nums[b] + nums[c] + nums[d] == target
+            You may return the answer in any order.
+
+            Leetcode : https://leetcode.com/problems/4sum/
+
+            Approach :
+                => 1. Store all possible combinations of 2 numbers in a array
+                => apply 2 pointer
+            Time Complexity :
+                combinations O(n2) + Sorting O(n2*log(n2)) + 2-pointer O(n2) = O(n2log(n))
+            Space Complexity : O(n2)
+         */
+        ArrayList<String> answer = new ArrayList<>();
+        HashSet<String> set = new HashSet<>();
+        ArrayList<Pair> combinations = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i+1; j < nums.length; j++){
+                combinations.add(new Pair(nums[i], nums[j]));
+            }
+        }
+        Collections.sort(combinations);
+
+        int left = 0;
+        int right = combinations.size()-1;
+        while(left < right){
+            Pair pair1 = combinations.get(left);
+            Pair pair2 = combinations.get(right);
+
+            int sum = pair1.getSum() + pair2.getSum();
+            if(sum == x){
+                int num1 = pair1.getNum1();
+                int num2 = pair1.getNum2();
+                int num3 = pair2.getNum1();
+                int num4 = pair2.getNum2();
+
+                ArrayList<Integer> subAns = new ArrayList<>(Arrays.asList(num1, num2, num3, num4));
+                Collections.sort(subAns);
+                String subAnsStr = subAns.toString();
+                if(!set.contains(subAnsStr) && num1 != num3 && num1 != num4 && num2 != num3 && num2 != num4){
+                    set.add(subAnsStr);
+                    answer.add(subAnsStr);
+                }
+                int subIterRight = right -1;
+                while(subIterRight > left && combinations.get(subIterRight).getSum() == pair2.getSum()){
+                    int num3SubIter = combinations.get(subIterRight).getNum1();
+                    int num4SubIter = combinations.get(subIterRight).getNum2();
+
+                    ArrayList<Integer> subAnsIterRight = new ArrayList<>(Arrays.asList(num1, num2, num3SubIter, num4SubIter));
+                    Collections.sort(subAnsIterRight);
+                    String subAnsStrIterRight = subAnsIterRight.toString();
+                    if(!set.contains(subAnsStrIterRight) && num1 != num3SubIter && num2 != num3SubIter && num1 != num4SubIter && num2 != num4SubIter){
+                        set.add(subAnsStrIterRight);
+                        answer.add(subAnsStrIterRight);
+                    }
+                    subIterRight--;
+                }
+                int subIterLeft = left+1;
+                while(subIterLeft < right && combinations.get(subIterLeft).getSum() == pair1.getSum()){
+                    int num1SubIter = combinations.get(subIterLeft).getNum1();
+                    int num2SubIter = combinations.get(subIterLeft).getNum2();
+
+                    ArrayList<Integer> subAnsIterLeft = new ArrayList<>(Arrays.asList(num1SubIter, num2SubIter, num3, num4));
+                    Collections.sort(subAnsIterLeft);
+                    String subAnsStrIterLeft = subAnsIterLeft.toString();
+                    if(!set.contains(subAnsStrIterLeft) && num1SubIter != num3 && num1SubIter != num4 && num2SubIter != num3 && num2SubIter != num4){
+                        set.add(subAnsStrIterLeft);
+                        answer.add(subAnsStrIterLeft);
+                    }
+                    subIterLeft++;
+                }
+                left++;
+                right--;
+            }else if(sum < x){
+                left++;
+            }else{
+                right--;
+            }
+        }
+
+        return answer;
+    }
 }
