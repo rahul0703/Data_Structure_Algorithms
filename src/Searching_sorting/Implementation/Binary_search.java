@@ -38,4 +38,47 @@ public class Binary_search {
             return binarySearchUtil(nums, mid + 1, right, x);
         }
     }
+
+    public int binarySearch2(int[] nums, int x){
+        if(x <= nums[0]){
+            return 0;
+        }
+        if(x == nums[nums.length-1]){
+            return nums.length-1;
+        }
+        if(x > nums[nums.length -1]){
+            return nums.length;
+        }
+        return binarySearchUtil2(nums, x, 0, nums.length-1);
+    }
+
+    public int binarySearchUtil2(int[] nums, int x, int left, int right){
+        if(left < 0){
+            return 0;
+        }
+        if(right >= nums.length){
+            return nums.length -1;
+        }
+
+        int mid = left + (right-left)/2;
+        int num = nums[mid];
+
+        if(num == x){
+            return mid;
+        }
+        if(x <= nums[left]){
+            return left;
+        }
+        if(x == nums[right]){
+            return right;
+        }
+        if(x > nums[right]){
+            return right == nums.length - 1 ? right : right+1;
+        }
+        if(x > num){
+            return binarySearchUtil2(nums, x, mid+1, right);
+        }else{
+            return binarySearchUtil2(nums, x, left, mid -1);
+        }
+    }
 }

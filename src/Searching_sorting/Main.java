@@ -16,7 +16,7 @@ public class Main {
         }
         int x = scanner.nextInt();
 
-        binarySearch(array, x);
+        binarySearch2(array, x);
 //        missingAndRepeatingNumberInArray(array);
     }
 
@@ -42,5 +42,11 @@ public class Main {
         Binary_search binarySearch = new Binary_search();
         int answer = binarySearch.binarySearch1(array,num);
         System.out.println("binarySearch : answer :: " + answer);
+    }
+
+    public static void binarySearch2(int[] array, int num){
+        Binary_search binarySearch = new Binary_search();
+        int answer = binarySearch.binarySearch2(array, num);
+        System.out.println("binarySearch2 : answer :: " + answer);
     }
 }
