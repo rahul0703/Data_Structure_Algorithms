@@ -9,15 +9,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-//        int n = scanner.nextInt();
-//        int[] array = new int[n];
-//        for(int i = 0; i < n; i++){
-//            array[i] = scanner.nextInt();
-//        }
-//        int x = scanner.nextInt();
+        int n = scanner.nextInt();
+        int[] array = new int[n];
+        for(int i = 0; i < n; i++){
+            array[i] = scanner.nextInt();
+        }
+        int x = scanner.nextInt();
 
 //        binarySearch2(array, x);
 //        missingAndRepeatingNumberInArray(array);
+        combintionOf4SumEuqalsX(array, x);
     }
 
     public static void searching_sorting(int[] array){
@@ -56,5 +57,13 @@ public class Main {
         System.out.println("findUniquePairWithGivenDiffInArr : answer :: " + answer);
     }
 
+    public static void combintionOf4SumEuqalsX(int[] nums, int target){
+        Utility utility = new Utility();
+        ArrayList<String> answer = utility.combintionOf4SumEuqalsX(nums, target);
+        System.out.println("combintionOf4SumEuqalsX : combinations :: ");
+        for(String subAns : answer){
+            System.out.println(subAns);
+        }
+    }
 
 }
