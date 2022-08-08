@@ -9,14 +9,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int[] array = new int[n];
-        for(int i = 0; i < n; i++){
-            array[i] = scanner.nextInt();
-        }
-        int x = scanner.nextInt();
+//        int n = scanner.nextInt();
+//        int[] array = new int[n];
+//        for(int i = 0; i < n; i++){
+//            array[i] = scanner.nextInt();
+//        }
+//        int x = scanner.nextInt();
 
-        binarySearch2(array, x);
+//        binarySearch2(array, x);
 //        missingAndRepeatingNumberInArray(array);
     }
 
@@ -49,4 +49,12 @@ public class Main {
         int answer = binarySearch.binarySearch2(array, num);
         System.out.println("binarySearch2 : answer :: " + answer);
     }
+
+    public static void findUniquePairWithGivenDiffInArr(int[] array, int num){
+        Utility utility = new Utility();
+        int answer = utility.findUniquePairWithGivenDiffInArr(array, num);
+        System.out.println("findUniquePairWithGivenDiffInArr : answer :: " + answer);
+    }
+
+
 }

@@ -2,6 +2,7 @@ package Searching_sorting;
 
 import Searching_sorting.Implementation.Binary_search;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Utility {
@@ -143,6 +144,9 @@ public class Utility {
             Leetcode : https://leetcode.com/problems/search-insert-position/
 
             This a classical binary search question, if element is found the return pos or return pos where it would be inserted.
+
+            Time Cmplx : O(logn)
+            space Complx : O(1)
          */
         Binary_search binarySearch = new Binary_search();
 
@@ -150,4 +154,59 @@ public class Utility {
         return new ArrayList<>(Arrays.asList(index-1, index));
     }
 
+    public int findUniquePairWithGivenDiffInArr(int[] nums, int diff){
+        /*
+            Given an array of integers nums and an integer k, return the number of unique k-diff pairs in the array.
+
+            A k-diff pair is an integer pair (nums[i], nums[j]), where the following are true:
+
+            0 <= i, j < nums.length
+            i != j
+            nums[i] - nums[j] == k
+            Notice that |val| denotes the absolute value of val
+
+            Leetcode : https://leetcode.com/problems/k-diff-pairs-in-an-array/
+
+            Approach : 1. using sorting : sort the array and applying sliding window.
+                            Time Cmplx : O(nlogn)
+                            space Cmplx : O(n)
+                       2. using HashSet : travel the array and find num - diff and num + diff in hashset. Insert num in hashset.
+                            Time Cmplx : O(n)
+                            Space Cmplx : O(n)
+            we are going to implement both approach
+         */
+        return findUniquePairWithGivenDiffInArrSorting(nums, diff);
+//        return 0;
+    }
+
+    public int findUniquePairWithGivenDiffInArrSorting(int[] nums, int diff){
+        Arrays.sort(nums);
+        int left = 0;
+        int right = 1;
+        int count = 0;
+        int prevRight = Integer.MIN_VALUE;
+        while(right < nums.length){
+            if(left > right){
+                right++;
+                continue;
+            }
+            int diffIter = nums[right] - nums[left];
+            if(diffIter < diff){
+                right++;
+            }else if(diffIter == diff){
+                if(prevRight != nums[right] && left != right){
+                    prevRight = nums[right];
+                    count++;
+                }
+                if(left == right){
+                    right++;
+                }else{
+                    left++;
+                }
+            }else{
+                left++;
+            }
+        }
+        return count;
+    }
 }
