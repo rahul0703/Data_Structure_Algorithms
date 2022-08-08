@@ -1,5 +1,7 @@
 package Searching_sorting;
 
+import Searching_sorting.Implementation.Binary_search;
+
 import java.util.*;
 
 public class Utility {
@@ -134,9 +136,18 @@ public class Utility {
 
     public ArrayList<Integer> findCeilAndFloorOfXinSrtdArray(int[] nums, int x){
         /*
+            Given a sorted array and a value x, the ceiling of x is the smallest element in an array greater than or equal to x,
+            and the floor is the greatest element smaller than or equal to x.
+            Assume that the array is sorted in non-decreasing order. Write efficient functions to find the floor and ceiling of x.
 
+            Leetcode : https://leetcode.com/problems/search-insert-position/
+
+            This a classical binary search question, if element is found the return pos or return pos where it would be inserted.
          */
-        return new ArrayList<>();
+        Binary_search binarySearch = new Binary_search();
+
+        int index = binarySearch.binarySearch2(nums, x);
+        return new ArrayList<>(Arrays.asList(index-1, index));
     }
 
 }
