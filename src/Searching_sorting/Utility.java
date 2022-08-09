@@ -295,4 +295,52 @@ public class Utility {
 
         return answer;
     }
+
+    public double medianOf2SrtdArr(int[] array1, int[] array2){
+        /*
+            Given two sorted arrays nums1 and nums2 of size m and n respectively,
+            return the median of the two sorted arrays.
+
+            Leetcode : https://leetcode.com/problems/median-of-two-sorted-arrays/
+
+            Approach :
+                This is a classical Binary Search implementation
+
+                lets say the arrays are A : [a1, a2, a3, ........, a7], B: [b1, b2, ........b9]
+                now, the size of array are 7 and 9 respectively.
+                1. We need to divide the array into equal index on the left and right,
+                combined. example : 3-4 and 5-4 : here on the left A has 3 index and on B has 5 index. On the right 4 and 4 respectively.
+                Both now have 8-8 index on left and right combined.
+                2. the elements on the left should be smaller than all the elements on the right. as A3 is by default smaller than A4
+                and same for B5 and B6. So, we just need to check if A3 <= B6 and B5 <= A4.
+
+                We will use binary search on smaller array and divide the larger for the same.
+
+                if both conditions satifies we need to output the answer.
+                Remember : if the combined size of array is odd, we can directly output the middle element. If the array combined size if even
+                like the one above, we need to output Math.avg(Math.max(a3, b5), Math.min(a4, b6))
+
+            Time Cmplx : O(log(Math.min(A.size, B.size))
+            Space Cmplx : O(1)
+
+         */
+        int n = array1.length;
+        int m = array2.length;
+
+        if(n > m){
+            return medianOf2SrtdArr(array2, array1);
+        }
+        int start = 0;
+        int end = n-1;
+
+        while(start < end){
+            int mid = start + (end - start)/2;
+
+            int leftNumArray1 = mid >= 0 ? array1[mid] : Integer.MIN_VALUE;
+
+        }
+
+
+        return -1;
+    }
 }
