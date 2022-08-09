@@ -296,7 +296,7 @@ public class Utility {
         return answer;
     }
 
-    public double medianOf2SrtdArr(int[] array1, int[] array2){
+    public double medianOf2SrtdArr(int[] nums1, int[] nums2){
         /*
             Given two sorted arrays nums1 and nums2 of size m and n respectively,
             return the median of the two sorted arrays.
@@ -324,23 +324,37 @@ public class Utility {
             Space Cmplx : O(1)
 
          */
-        int n = array1.length;
-        int m = array2.length;
+        int n=nums1.length;
+        int m=nums2.length;
 
-        if(n > m){
-            return medianOf2SrtdArr(array2, array1);
+        if (m < n)
+            return medianOf2SrtdArr(nums2, nums1);
+
+        int start1=0,end1=n;
+        while(start1<=end1){
+            int mid1=(start1+end1)/2;
+            int mid2=(n+m+1)/2-mid1;
+
+            int min1=(mid1==n)?Integer.MAX_VALUE:nums1[mid1];
+            int max1=(mid1==0)?Integer.MIN_VALUE:nums1[mid1-1];
+
+            int min2=(mid2==m)?Integer.MAX_VALUE:nums2[mid2];
+            int max2=(mid2==0)?Integer.MIN_VALUE:nums2[mid2-1];
+
+            if(max1<=min2 && max2<=min1){
+                if((n+m)%2==0){
+                    return ((double)(Math.max(max1,max2)+Math.min(min1,min2))/2);
+                }else{
+                    return ((double) Math.max(max1,max2));
+                }
+            }
+            else if(max1>min2){
+                end1=mid1-1;
+            }
+            else{
+                start1=mid1+1;
+            }
         }
-        int start = 0;
-        int end = n-1;
-
-        while(start < end){
-            int mid = start + (end - start)/2;
-
-            int leftNumArray1 = mid >= 0 ? array1[mid] : Integer.MIN_VALUE;
-
-        }
-
-
-        return -1;
+        return 0;
     }
 }
