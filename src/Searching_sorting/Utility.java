@@ -357,4 +357,48 @@ public class Utility {
         }
         return 0;
     }
+
+    public int maxSumSubsequenceWithNoAdjEle(int[] array){
+        /*
+            Given an array arr[] of positive numbers, the task is to find the maximum sum of a subsequence with
+             the constraint that no 2 numbers in the sequence should be adjacent in the array.
+
+             Leetcode : https://leetcode.com/problems/house-robber/
+
+             Approach:
+                This is a classic DP question
+                1. Make a 2*N array, for every i {1, n} dp[0][i] will store max sum if current number is not included.
+                 And dp[1][i] will store max sum if current number is to be included.
+                 return the Max(dp[0][n-1], dp[1][n-1])
+                 example : 5 5 10 100 10 5
+                 array will be {0, 5}, {5, 5}, {5, 15}, {15, 105}, {105, 25}, {105, 110}
+                 therefore answer will be 110.
+         */
+        int[][] dpArray = new int[2][array.length];
+        for(int i = 0; i < array.length; i++){
+            if(i == 0){
+                dpArray[0][i] = 0;
+                dpArray[1][i] = array[i];
+                continue;
+            }
+            dpArray[0][i] = Math.max(dpArray[0][i-1], dpArray[1][i-1]);
+            dpArray[1][i] = array[i] + dpArray[0][i-1];
+
+        }
+        return Math.max(dpArray[0][array.length-1], dpArray[1][array.length-1]);
+    }
+
+    public ArrayList<String> findTriplatesWithSumLessThanX(int[] array){
+        /*
+        Given an array of distinct integers and a sum value.
+        Find count of triplets with sum smaller than given sum value.
+        The expected Time Complexity is O(n2).
+
+        GFG : https://www.geeksforgeeks.org/count-triplets-with-sum-smaller-that-a-given-value/
+
+        Approach :
+
+         */
+        return new ArrayList<>();
+    }
 }
