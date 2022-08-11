@@ -9,7 +9,6 @@ import java.util.*;
 
 public class Utility {
 
-
     public int majorityElement(int[] nums) {
         /*
             find an element which appear more that n/2 times in a array
