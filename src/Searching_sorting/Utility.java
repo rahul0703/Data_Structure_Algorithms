@@ -295,4 +295,110 @@ public class Utility {
 
         return answer;
     }
+
+    public double medianOf2SrtdArr(int[] nums1, int[] nums2){
+        /*
+            Given two sorted arrays nums1 and nums2 of size m and n respectively,
+            return the median of the two sorted arrays.
+
+            Leetcode : https://leetcode.com/problems/median-of-two-sorted-arrays/
+
+            Approach :
+                This is a classical Binary Search implementation
+
+                lets say the arrays are A : [a1, a2, a3, ........, a7], B: [b1, b2, ........b9]
+                now, the size of array are 7 and 9 respectively.
+                1. We need to divide the array into equal index on the left and right,
+                combined. example : 3-4 and 5-4 : here on the left A has 3 index and on B has 5 index. On the right 4 and 4 respectively.
+                Both now have 8-8 index on left and right combined.
+                2. the elements on the left should be smaller than all the elements on the right. as A3 is by default smaller than A4
+                and same for B5 and B6. So, we just need to check if A3 <= B6 and B5 <= A4.
+
+                We will use binary search on smaller array and divide the larger for the same.
+
+                if both conditions satifies we need to output the answer.
+                Remember : if the combined size of array is odd, we can directly output the middle element. If the array combined size if even
+                like the one above, we need to output Math.avg(Math.max(a3, b5), Math.min(a4, b6))
+
+            Time Cmplx : O(log(Math.min(A.size, B.size))
+            Space Cmplx : O(1)
+
+         */
+        int n=nums1.length;
+        int m=nums2.length;
+
+        if (m < n)
+            return medianOf2SrtdArr(nums2, nums1);
+
+        int start1=0,end1=n;
+        while(start1<=end1){
+            int mid1=(start1+end1)/2;
+            int mid2=(n+m+1)/2-mid1;
+
+            int min1=(mid1==n)?Integer.MAX_VALUE:nums1[mid1];
+            int max1=(mid1==0)?Integer.MIN_VALUE:nums1[mid1-1];
+
+            int min2=(mid2==m)?Integer.MAX_VALUE:nums2[mid2];
+            int max2=(mid2==0)?Integer.MIN_VALUE:nums2[mid2-1];
+
+            if(max1<=min2 && max2<=min1){
+                if((n+m)%2==0){
+                    return ((double)(Math.max(max1,max2)+Math.min(min1,min2))/2);
+                }else{
+                    return ((double) Math.max(max1,max2));
+                }
+            }
+            else if(max1>min2){
+                end1=mid1-1;
+            }
+            else{
+                start1=mid1+1;
+            }
+        }
+        return 0;
+    }
+
+    public int maxSumSubsequenceWithNoAdjEle(int[] array){
+        /*
+            Given an array arr[] of positive numbers, the task is to find the maximum sum of a subsequence with
+             the constraint that no 2 numbers in the sequence should be adjacent in the array.
+
+             Leetcode : https://leetcode.com/problems/house-robber/
+
+             Approach:
+                This is a classic DP question
+                1. Make a 2*N array, for every i {1, n} dp[0][i] will store max sum if current number is not included.
+                 And dp[1][i] will store max sum if current number is to be included.
+                 return the Max(dp[0][n-1], dp[1][n-1])
+                 example : 5 5 10 100 10 5
+                 array will be {0, 5}, {5, 5}, {5, 15}, {15, 105}, {105, 25}, {105, 110}
+                 therefore answer will be 110.
+         */
+        int[][] dpArray = new int[2][array.length];
+        for(int i = 0; i < array.length; i++){
+            if(i == 0){
+                dpArray[0][i] = 0;
+                dpArray[1][i] = array[i];
+                continue;
+            }
+            dpArray[0][i] = Math.max(dpArray[0][i-1], dpArray[1][i-1]);
+            dpArray[1][i] = array[i] + dpArray[0][i-1];
+
+        }
+        return Math.max(dpArray[0][array.length-1], dpArray[1][array.length-1]);
+    }
+
+    public ArrayList<String> findTriplatesWithSumLessThanX(int[] array){
+        /*
+        Given an array of distinct integers and a sum value.
+        Find count of triplets with sum smaller than given sum value.
+        The expected Time Complexity is O(n2).
+
+        GFG : https://www.geeksforgeeks.org/count-triplets-with-sum-smaller-that-a-given-value/
+
+        Approach :
+
+         */
+        return new ArrayList<>();
+    }
 }
