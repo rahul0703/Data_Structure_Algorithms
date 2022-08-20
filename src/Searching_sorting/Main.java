@@ -2,6 +2,7 @@ package Searching_sorting;
 
 import Searching_sorting.Implementation.Binary_search;
 import Searching_sorting.Implementation.Count_Sort;
+import Searching_sorting.Implementation.Median_In_Integer_Stream;
 import Searching_sorting.Implementation.Quick_sort;
 import sun.awt.windows.WSystemTrayPeer;
 
@@ -12,18 +13,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        int[] array = new int[n];
-        for(int i = 0; i < n; i++){
-            array[i] = scanner.nextInt();
-        }
+//        int n = scanner.nextInt();
+//        int[] array = new int[n];
+//        for(int i = 0; i < n; i++){
+//            array[i] = scanner.nextInt();
+//        }
 //        int x = scanner.nextInt();
 
 //        binarySearch2(array, x);
 //        missingAndRepeatingNumberInArray(array);
 //        combintionOf4SumEuqalsX(array, x);
 //        quicksort(array);
-        countSort(array);
+//        countSort(array);
+        medianInStream();
     }
 
     public static void searching_sorting(int[] array){
@@ -87,4 +89,16 @@ public class Main {
             System.out.print(num + " ");
         }
     }
+
+    public static void medianInStream(){
+        Median_In_Integer_Stream medianInStreamArray = new Median_In_Integer_Stream();
+        Scanner scan = new Scanner(System.in);
+        for(int i = 0; i < 10; i++){
+            int num = scan.nextInt();
+            medianInStreamArray.addNum(num);
+            System.out.println(medianInStreamArray.findMedian());
+        }
+    }
+
+
 }
