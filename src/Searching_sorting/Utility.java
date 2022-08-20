@@ -9,7 +9,6 @@ import java.util.*;
 
 public class Utility {
 
-
     public int majorityElement(int[] nums) {
         /*
             find an element which appear more that n/2 times in a array
@@ -397,8 +396,24 @@ public class Utility {
         GFG : https://www.geeksforgeeks.org/count-triplets-with-sum-smaller-that-a-given-value/
 
         Approach :
+            1) Sort the input array in increasing order.
+            2) Initialize result as 0.
+            3) Run a loop from i = 0 to n-2.  An iteration of this loop finds all
+               triplets with arr[i] as first element.
+                 a) Initialize other two elements as corner elements of subarray
+                    arr[i+1..n-1], i.e., j = i+1 and k = n-1
+                 b) Move j and k toward each other until they meet, i.e., while (j<k),
+                        (i) If arr[i] + arr[j] + arr[k] >= sum
+                            then k--
+                        // Else for current i and j, there can (k-j) possible third elements
+                        // that satisfy the constraint.
+                        (ii) Else Do ans += (k - j) followed by j++
 
          */
         return new ArrayList<>();
     }
+
+
+
+
 }
