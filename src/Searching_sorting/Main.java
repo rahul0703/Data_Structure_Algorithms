@@ -1,6 +1,8 @@
 package Searching_sorting;
 
 import Searching_sorting.Implementation.Binary_search;
+import Searching_sorting.Implementation.Quick_sort;
+import sun.awt.windows.WSystemTrayPeer;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,11 +16,12 @@ public class Main {
         for(int i = 0; i < n; i++){
             array[i] = scanner.nextInt();
         }
-        int x = scanner.nextInt();
+//        int x = scanner.nextInt();
 
 //        binarySearch2(array, x);
 //        missingAndRepeatingNumberInArray(array);
-        combintionOf4SumEuqalsX(array, x);
+//        combintionOf4SumEuqalsX(array, x);
+        quicksort(array);
     }
 
     public static void searching_sorting(int[] array){
@@ -63,6 +66,15 @@ public class Main {
         System.out.println("combintionOf4SumEuqalsX : combinations :: ");
         for(String subAns : answer){
             System.out.println(subAns);
+        }
+    }
+
+    public static void quicksort(int[] array){
+        Quick_sort quickSort = new Quick_sort();
+        quickSort.quickSort3Way(array, 0, array.length-1);
+        System.out.println();
+        for(int num : array){
+            System.out.print(num + " ");
         }
     }
 
