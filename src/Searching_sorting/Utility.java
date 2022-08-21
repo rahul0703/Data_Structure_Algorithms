@@ -414,6 +414,62 @@ public class Utility {
     }
 
 
+    public int subarraySum(int[] nums, int k) {
+        /*
+        Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+        A subarray is a contiguous non-empty sequence of elements within an array.
 
+        Leetcode: https://leetcode.com/problems/subarray-sum-equals-k/
+
+        Approach: Store every sum in hashmap and find the sum - target is already there in hashmap.
+         */
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int n = nums.length;
+        int ans = 0;
+        int sum = 0;
+        map.put(0, 1);
+        for(int i = 0; i < n; i++){
+            sum += nums[i];
+
+            int target = sum - k;
+            if(map.containsKey(target)){
+                ans += map.get(target);
+            }
+
+            if(map.containsKey(sum)){
+                map.put(sum, map.get(sum) + 1);
+            }else{
+                map.put(sum, 1);
+            }
+        }
+
+        return ans;
+    }
+
+    public int[] productOfArrayExpectSelf(int[] nums){
+        /*
+        Find the product of all elements of array, at every index expect the element at the position.
+        We have to implement the functionality without using "/" operator.
+         */
+        int[] answer = new int[nums.length];
+        int prevProduct = 1;
+        for(int i = 0; i < nums.length; i++){
+            if(i == 0){
+                answer[i] = 1;
+                continue;
+            }
+            answer[i] = prevProduct * nums[i-1];
+            prevProduct = answer[i];
+        }
+        prevProduct = 1;
+        for(int i = nums.length-1; i >= 0; i--){
+            if(i == nums.length-1){
+                continue;
+            }
+            answer[i] = answer[i] * prevProduct * nums[i+1];
+            prevProduct = prevProduct * nums[i+1];
+        }
+        return answer;
+    }
 
 }
