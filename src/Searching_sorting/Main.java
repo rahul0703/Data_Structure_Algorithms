@@ -13,11 +13,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-//        int n = scanner.nextInt();
-//        int[] array = new int[n];
-//        for(int i = 0; i < n; i++){
-//            array[i] = scanner.nextInt();
-//        }
+        int n = scanner.nextInt();
+        int[] array = new int[n];
+        for(int i = 0; i < n; i++){
+            array[i] = scanner.nextInt();
+        }
 //        int x = scanner.nextInt();
 
 //        binarySearch2(array, x);
@@ -25,7 +25,8 @@ public class Main {
 //        combintionOf4SumEuqalsX(array, x);
 //        quicksort(array);
 //        countSort(array);
-        medianInStream();
+//        medianInStream();
+        arrayProductExceptSelf(array);
     }
 
     public static void searching_sorting(int[] array){
@@ -100,5 +101,14 @@ public class Main {
         }
     }
 
+    public static void arrayProductExceptSelf(int[] nums){
+        Utility utility = new Utility();
+        int[] answer = utility.productOfArrayExpectSelf(nums);
+
+        for(int i = 0; i < answer.length; i++){
+            System.out.print(answer[i] + " ");
+        }
+        System.out.println();
+    }
 
 }
