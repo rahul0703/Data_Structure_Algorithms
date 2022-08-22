@@ -473,6 +473,117 @@ public class Utility {
     }
 
 
+    public int findMissingInO1Space(int[] nums){
+        /*
+        Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+        There is only one repeated number in nums, return this repeated number.
+        You must solve the problem without modifying the array nums and uses only constant extra space.
 
+        Leetcode : https://leetcode.com/problems/find-the-duplicate-number/
 
+         Approach : Make number negative once it is visited, if the number is already negative, it is the repeated one.
+         */
+        for(int i = 0; i < nums.length; i++){
+            int num = Math.abs(nums[i]);
+            if(nums[num] < 0){
+                return num;
+            }else{
+                nums[num] = -nums[num];
+            }
+        }
+        return -1;
+    }
+
+    public int findPairXYwithPowerDiff(int[] array1, int[] array2){
+        /*
+        Given two arrays X[] and Y[] of positive integers,
+        find a number of pairs such that x^y > y^x where x is an element from X[] and y is an element from Y[].
+
+        Difficulty: Hard
+        GFG: https://www.geeksforgeeks.org/find-number-pairs-xy-yx/
+        Expected TimeComplexity : nlogn + mlogn
+
+        Approach:
+            1. for number greater than 2, X^Y is always greater the Y^X is Y > X.
+            2. for 2, 3. 2^3 is lesser than 3^2
+            3. for 2, 4, 2^4 is same as 4^2
+            4. for 1, X; 1^X <= X^1 for all x.
+         */
+
+        int count = 0;
+        int count2InArray1 = 0;
+        int count3InArray1 = 0;
+        int count1InArray1 = 0;
+        for(int num : array1){
+            count2InArray1 = num == 2 ? count2InArray1 += 1 : count2InArray1;
+            count3InArray1 = num == 3 ? count3InArray1 += 1 : count3InArray1;
+            count1InArray1 = num == 1 ? count1InArray1 += 1 : count1InArray1;
+        }
+        Arrays.sort(array1);
+        for(int i = 0; i < array2.length; i++){
+            int num = array2[i];
+            if(num == 1){
+                continue;
+            }
+            int lastIdxOfNumInArray1 = findLastIdx(array1, num);
+            if(num == 2){
+                count += array1.length - lastIdxOfNumInArray1 - 1;
+                count -= count3InArray1;
+                count += count1InArray1;
+                continue;
+            }
+            if(num == 3){
+                count += array1.length - lastIdxOfNumInArray1 - 1;
+                count += count2InArray1;
+                count += count1InArray1;
+                continue;
+            }
+            count += array1.length - lastIdxOfNumInArray1 - 1;
+            count += count1InArray1;
+        }
+        return count;
+    }
+
+    public int findLastIdx(int[] array, int num){
+        int start = 0;
+        int end = array.length-1;
+        if(array[end] <= num){
+            return array.length-1;
+        }
+        if(array[start] > num){
+            return -1;
+        }
+        while(start <= end){
+            int mid = start + ((end - start) >>> 1);
+            int temp = array[mid];
+            if(temp == num){
+                if(mid == end){
+                    return mid;
+                }else{
+                    if(array[mid+1] > num){
+                        return mid;
+                    }else{
+                        start = mid+1;
+                    }
+                }
+            }else if(temp < num){
+                if(mid == end){
+                    return mid;
+                }else if(array[mid+1] > num){
+                    return mid;
+                }else{
+                    start = mid + 1;
+                }
+            }else{
+                if(mid == start){
+                    return mid - 1;
+                }else if(array[mid-1] <= num){
+                    return mid-1;
+                }else{
+                    end = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
 }

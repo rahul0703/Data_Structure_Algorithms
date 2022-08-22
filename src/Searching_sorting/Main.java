@@ -14,9 +14,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        int[] array = new int[n];
+        int[] array1 = new int[n];
         for(int i = 0; i < n; i++){
-            array[i] = scanner.nextInt();
+            array1[i] = scanner.nextInt();
+        }
+        int m = scanner.nextInt();
+        int[] array2 = new int[m];
+        for(int i = 0; i < m; i++){
+            array2[i] = scanner.nextInt();
         }
 //        int x = scanner.nextInt();
 
@@ -26,7 +31,8 @@ public class Main {
 //        quicksort(array);
 //        countSort(array);
 //        medianInStream();
-        arrayProductExceptSelf(array);
+//        arrayProductExceptSelf(array);
+        findPairXYwithPowerDiff(array1, array2);
     }
 
     public static void searching_sorting(int[] array){
@@ -111,4 +117,9 @@ public class Main {
         System.out.println();
     }
 
+    public static void findPairXYwithPowerDiff(int[] array1, int[] array2){
+        Utility utility = new Utility();
+        int answer = utility.findPairXYwithPowerDiff(array1, array2);
+        System.out.println("findPairXYwithPowerDiff : answer :: " + answer);
+    }
 }
