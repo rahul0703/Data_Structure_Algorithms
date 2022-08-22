@@ -473,6 +473,25 @@ public class Utility {
     }
 
 
+    public int findMissingInO1Space(int[] nums){
+        /*
+        Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+        There is only one repeated number in nums, return this repeated number.
+        You must solve the problem without modifying the array nums and uses only constant extra space.
 
+        Leetcode : https://leetcode.com/problems/find-the-duplicate-number/
+
+         Approach : Make number negative once it is visited, if the number is already negative, it is the repeated one.
+         */
+        for(int i = 0; i < nums.length; i++){
+            int num = Math.abs(nums[i]);
+            if(nums[num] < 0){
+                return num;
+            }else{
+                nums[num] = -nums[num];
+            }
+        }
+        return -1;
+    }
 
 }
