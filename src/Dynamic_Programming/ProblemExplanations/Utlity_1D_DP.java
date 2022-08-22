@@ -1,5 +1,8 @@
 package Dynamic_Programming.ProblemExplanations;
 
+import java.util.Arrays;
+import java.util.PriorityQueue;
+
 public class Utlity_1D_DP {
 
     public boolean uglyNumber(int n){
@@ -26,6 +29,32 @@ public class Utlity_1D_DP {
     }
 
     public int findNthuglyNumber(int[] array, int n){
-        return -1;
+        int[] count = new int[array.length];
+        int[] answer = new int[n];
+        answer[0] = 1;
+        int max = 1;
+        for(int i = 1; i < n; i++){
+            for(int j = 0; j < array.length; j++){
+                while(answer[count[j]] * array[j] <= max){
+                    count[j]++;
+                }
+            }
+
+            int minIndex = 0;
+            int minValue = answer[count[0]] * array[0];
+            for(int j = 1; j < array.length; j++){
+                int index = count[j];
+                if(minValue > answer[index] * array[j]){
+                    minValue = answer[index] * array[j];
+                    minIndex = j;
+                }
+            }
+
+            answer[i] = minValue;
+            max = answer[i];
+            count[minIndex]++;
+        }
+
+        return answer[n-1];
     }
 }
