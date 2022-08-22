@@ -25,5 +25,7 @@ public class Utlity_1D_DP {
         return n == 1? true:false;
     }
 
-    public int findNthuglyNumber(int[] )
+    public int findNthuglyNumber(int[] array, int n){
+        return -1;
+    }
 }
