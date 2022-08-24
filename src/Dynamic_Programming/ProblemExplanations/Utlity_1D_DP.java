@@ -123,4 +123,36 @@ public class Utlity_1D_DP {
         return dp[nums.length -1];
     }
 
+    public int longestIncreasingSubsequence(int[] nums){
+        /*
+        Given an integer array nums, return the length of the longest strictly increasing subsequence.
+        A subsequence is a sequence that can be derived from an array
+        by deleting some or no elements without changing the order of the remaining elements.
+        For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7]
+
+        Level: Medium
+        Leetcode: https://leetcode.com/problems/longest-increasing-subsequence/
+
+        Approach:
+            1. This is a classic Dp question. We will make a 1D dp array
+            and store the longest increasing subsequence at each index in the DP array
+            2. for all prev, if the num > prev num, dp[i] = Max(dp[prv] + 1).
+         */
+
+        if(nums.length == 0){
+            return 0;
+        }
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int ans= 1;
+        for(int i = 1;i < nums.length; i++){
+            int max = 1;
+            for(int j = 0; j < i; j++){
+                max = nums[i] > nums[j] ? Math.max(max, dp[j] + 1) : max;
+            }
+            dp[i] = max;
+            ans = Math.max(ans, max);
+        }
+        return ans;
+    }
 }
