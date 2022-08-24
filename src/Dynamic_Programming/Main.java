@@ -16,5 +16,12 @@ public class Main {
         System.out.println("uglyNumbers : answer :: " + answer);
     }
 
+    public static void nthUglyNumber(int n, int[] array){
+        Utlity_1D_DP utility = new Utlity_1D_DP();
+        int answer = utility.findNthUglyNumber(array, n);
+        System.out.println("nthUglyNumber : answer :: " + answer);
+    }
+
+
 }
 
