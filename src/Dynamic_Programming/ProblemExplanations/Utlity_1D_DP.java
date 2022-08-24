@@ -123,4 +123,125 @@ public class Utlity_1D_DP {
         return dp[nums.length -1];
     }
 
+    public int longestIncreasingSubsequence(int[] nums){
+        /*
+        Given an integer array nums, return the length of the longest strictly increasing subsequence.
+        A subsequence is a sequence that can be derived from an array
+        by deleting some or no elements without changing the order of the remaining elements.
+        For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7]
+
+        Level: Medium
+        Leetcode: https://leetcode.com/problems/longest-increasing-subsequence/
+
+        Approach:
+            1. This is a classic Dp question. We will make a 1D dp array
+            and store the longest increasing subsequence at each index in the DP array
+            2. for all prev, if the num > prev num, dp[i] = Max(dp[prv] + 1).
+         */
+
+        if(nums.length == 0){
+            return 0;
+        }
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int ans= 1;
+        for(int i = 1;i < nums.length; i++){
+            int max = 1;
+            for(int j = 0; j < i; j++){
+                max = nums[i] > nums[j] ? Math.max(max, dp[j] + 1) : max;
+            }
+            dp[i] = max;
+            ans = Math.max(ans, max);
+        }
+        return ans;
+    }
+
+    public int longestBiotonicSubsequence(int[] nums){
+        /*
+            Same as above, here it is biotonic subsequence (increasing and then decreasing)
+            Strictly increasing and strictly decreasing is also biotonic
+
+            Level: Medium
+            GFG: https://www.geeksforgeeks.org/longest-bitonic-subsequence-dp-15/
+
+            Approach: Same as above
+         */
+        if(nums.length <= 1 ){
+            return nums.length;
+        }
+        int[] dpIncreasing = new int[nums.length];
+        int[] dpReverseIncreasing = new int[nums.length];
+        dpIncreasing[0] = 1;
+        dpReverseIncreasing[nums.length-1] = 1;
+        for(int i = 1; i < nums.length; i++){
+            int max = 1;
+            for(int j = 0; j < i; j++){
+                max = nums[i] > nums[j] ? Math.max(max, dpIncreasing[j] + 1) : max;
+            }
+            dpIncreasing[i] = max;
+        }
+        for(int i = nums.length-2; i >= 0; i--){
+            int max = 1;
+            for(int j = nums.length-1; j > i; j--){
+                max = nums[i] > nums[j] ? Math.max(max, dpReverseIncreasing[j] + 1) : max;
+            }
+            dpReverseIncreasing[i] = max;
+        }
+        int ans = 0;
+        for(int i = 0; i < nums.length; i++){
+            ans = Math.max(ans, dpIncreasing[i] + dpReverseIncreasing[i] -1);
+        }
+        return ans;
+    }
+
+    public int maximumSumBiotonicSubsequence(int[] nums){
+        /*
+
+         */
+        return -1;
+    }
+
+    public long maxAltSubseqDiff(int[] nums){
+        /*
+        The alternating sum of a 0-indexed array is defined as the sum of the elements
+        at even indices minus the sum of the elements at odd indices.
+
+        For example, the alternating sum of [4,2,5,3] is (4 + 5) - (2 + 3) = 4.
+        Given an array nums, return the maximum alternating sum of any subsequence
+        of nums (after reindexing the elements of the subsequence).
+
+        Level: Medium-hard
+        Leetcode: https://leetcode.com/problems/maximum-alternating-subsequence-sum/
+
+        Approach:
+            1. We'll make a Dp[n][2] size.
+            2. n,0 will have maximum sum, if current element is at even place.
+            3. n,1 will have maximum sum, if current element is at odd place.
+            4. We will update the maxAtEven ad maxAtOdd at every step to use in next iteration.
+         */
+        long[][] dp = new long[nums.length][2];
+        if(nums.length == 0){
+            return 0;
+        }
+        if(nums.length == 1){
+            return nums[0];
+        }
+        dp[0][0] = nums[0];
+        dp[0][1] = 0;
+        long ans = nums[0];
+
+        long maxPos = nums[0];
+        long maxNeg = 0;
+
+        for(int i = 0; i < nums.length; i++){
+            dp[i][0] = maxNeg + nums[i];
+            dp[i][1] = maxPos - nums[i];
+
+            maxPos = Math.max(maxPos, dp[i][0]);
+            maxNeg = Math.max(maxNeg, dp[i][1]);
+            ans = Math.max(ans, Math.max(dp[i][0], dp[i][1]));
+        }
+        return ans;
+    }
+
 }
