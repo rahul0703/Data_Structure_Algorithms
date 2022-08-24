@@ -84,4 +84,49 @@ public class Utlity_2D_DP {
         }
         return dp[target][nums.length - 1];
     }
+
+    public int longestCommonSubsequence(String text1, String text2){
+        /*
+        Given two strings text1 and text2, return the length of their longest common subsequence.
+        If there is no common subsequence, return 0.
+        A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+        For example, "ace" is a subsequence of "abcde".
+        A common subsequence of two strings is a subsequence that is common to both strings.
+
+        Level: Medium
+        Leetcode: https://leetcode.com/problems/longest-common-subsequence/
+
+        Approach:
+            1. Create a DP array of size n,m.
+            2. compare the current character, if same then
+                max(dp[diagonal]+1, dp[left-1], dp[top-1])
+            else
+                max(dp[left-1],dp[top-1])
+         */
+        int[][] dp = new int[text1.length()][text2.length()];
+        for(int i = 0; i < dp.length; i++){
+            char ch1 = text1.charAt(i);
+            for(int j = 0; j < dp[0].length; j++){
+                char ch2 = text2.charAt(j);
+                if(i == 0 && j == 0){
+                    dp[i][j] = ch1 == ch2 ? 1 : 0;
+                    continue;
+                }
+                if(i == 0){
+                    dp[i][j] = ch1 == ch2 ? 1 : dp[i][j-1];
+                    continue;
+                }
+                if(j == 0){
+                    dp[i][j] = ch1 == ch2 ? 1 : dp[i-1][j];
+                    continue;
+                }
+                dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+                if(ch1 == ch2){
+                    dp[i][j] = Math.max(dp[i][j], dp[i-1][j-1] + 1);
+                }
+            }
+        }
+        return dp[dp.length-1][dp[0].length-1];
+    }
 }
