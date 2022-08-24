@@ -68,5 +68,32 @@ public class Utlity_1D_DP {
         return answer[n-1];
     }
 
+    public boolean canReachTopOrNot(int[] nums){
+        /*
+        You are given an integer array nums. You are initially positioned at the array's first index,
+        and each element in the array represents your maximum jump length at that position.
+        Return true if you can reach the last index, or false otherwise.
 
+        Level: Medium
+        Leetcode: https://leetcode.com/problems/jump-game/
+
+        Approach:
+            1. Update the max reach at every step.
+            2. At every step, check if step <= max_reach before that. If not, return false;
+         */
+            int x = 0;
+            for(int i = 0; i < nums.length; i++){
+                if(i == 0){
+                    x = nums[i];
+                    continue;
+                }
+                if(i > x){
+                    return false;
+                }
+                x = Math.max(x, i + nums[i]);
+            }
+
+            return true;
+        }
+    }
 }
