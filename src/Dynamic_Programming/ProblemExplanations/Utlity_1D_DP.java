@@ -193,4 +193,55 @@ public class Utlity_1D_DP {
         }
         return ans;
     }
+
+    public int maximumSumBiotonicSubsequence(int[] nums){
+        /*
+
+         */
+        return -1;
+    }
+
+    public long maxAltSubseqDiff(int[] nums){
+        /*
+        The alternating sum of a 0-indexed array is defined as the sum of the elements
+        at even indices minus the sum of the elements at odd indices.
+
+        For example, the alternating sum of [4,2,5,3] is (4 + 5) - (2 + 3) = 4.
+        Given an array nums, return the maximum alternating sum of any subsequence
+        of nums (after reindexing the elements of the subsequence).
+
+        Level: Medium-hard
+        Leetcode: https://leetcode.com/problems/maximum-alternating-subsequence-sum/
+
+        Approach:
+            1. We'll make a Dp[n][2] size.
+            2. n,0 will have maximum sum, if current element is at even place.
+            3. n,1 will have maximum sum, if current element is at odd place.
+            4. We will update the maxAtEven ad maxAtOdd at every step to use in next iteration.
+         */
+        long[][] dp = new long[nums.length][2];
+        if(nums.length == 0){
+            return 0;
+        }
+        if(nums.length == 1){
+            return nums[0];
+        }
+        dp[0][0] = nums[0];
+        dp[0][1] = 0;
+        long ans = nums[0];
+
+        long maxPos = nums[0];
+        long maxNeg = 0;
+
+        for(int i = 0; i < nums.length; i++){
+            dp[i][0] = maxNeg + nums[i];
+            dp[i][1] = maxPos - nums[i];
+
+            maxPos = Math.max(maxPos, dp[i][0]);
+            maxNeg = Math.max(maxNeg, dp[i][1]);
+            ans = Math.max(ans, Math.max(dp[i][0], dp[i][1]));
+        }
+        return ans;
+    }
+
 }
