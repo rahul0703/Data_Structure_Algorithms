@@ -22,6 +22,6 @@ public class Main {
         System.out.println("nthUglyNumber : answer :: " + answer);
     }
 
-
+    
 }
 
