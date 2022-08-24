@@ -155,4 +155,42 @@ public class Utlity_1D_DP {
         }
         return ans;
     }
+
+    public int longestBiotonicSubsequence(int[] nums){
+        /*
+            Same as above, here it is biotonic subsequence (increasing and then decreasing)
+            Strictly increasing and strictly decreasing is also biotonic
+
+            Level: Medium
+            GFG: https://www.geeksforgeeks.org/longest-bitonic-subsequence-dp-15/
+
+            Approach: Same as above
+         */
+        if(nums.length <= 1 ){
+            return nums.length;
+        }
+        int[] dpIncreasing = new int[nums.length];
+        int[] dpReverseIncreasing = new int[nums.length];
+        dpIncreasing[0] = 1;
+        dpReverseIncreasing[nums.length-1] = 1;
+        for(int i = 1; i < nums.length; i++){
+            int max = 1;
+            for(int j = 0; j < i; j++){
+                max = nums[i] > nums[j] ? Math.max(max, dpIncreasing[j] + 1) : max;
+            }
+            dpIncreasing[i] = max;
+        }
+        for(int i = nums.length-2; i >= 0; i--){
+            int max = 1;
+            for(int j = nums.length-1; j > i; j--){
+                max = nums[i] > nums[j] ? Math.max(max, dpReverseIncreasing[j] + 1) : max;
+            }
+            dpReverseIncreasing[i] = max;
+        }
+        int ans = 0;
+        for(int i = 0; i < nums.length; i++){
+            ans = Math.max(ans, dpIncreasing[i] + dpReverseIncreasing[i] -1);
+        }
+        return ans;
+    }
 }
