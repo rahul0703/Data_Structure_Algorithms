@@ -81,19 +81,46 @@ public class Utlity_1D_DP {
             1. Update the max reach at every step.
             2. At every step, check if step <= max_reach before that. If not, return false;
          */
-            int x = 0;
-            for(int i = 0; i < nums.length; i++){
-                if(i == 0){
-                    x = nums[i];
-                    continue;
-                }
-                if(i > x){
-                    return false;
-                }
-                x = Math.max(x, i + nums[i]);
+        int x = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(i == 0){
+                x = nums[i];
+                continue;
             }
-
-            return true;
+            if(i > x){
+                return false;
+            }
+            x = Math.max(x, i + nums[i]);
         }
+
+        return true;
     }
+
+    public int minJumpRequiredToReachTop(int[] nums){
+        /*
+        Given an array of non-negative integers nums, you are initially positioned at the first index
+        of the array. Each element in the array represents your maximum jump length at that position.
+        Your goal is to reach the last index in the minimum number of jumps.
+        You can assume that you can always reach the last index.
+
+        Level: Medium
+        Leetcode: https://leetcode.com/problems/jump-game-ii/
+
+        Approach: At every step, update the min jump till the max jump from current.
+                  return the number at last index of dp.
+         */
+        int[] dp = new int[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            int num = nums[i];
+            int currMin = dp[i];
+            for(int j = i+1; j <= i + num; j++){
+                if(j >= nums.length){
+                    break;
+                }
+                dp[j] = dp[j] == 0? currMin + 1 : Math.min(dp[j], currMin + 1);
+            }
+        }
+        return dp[nums.length -1];
+    }
+
 }
