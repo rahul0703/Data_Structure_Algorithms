@@ -8,16 +8,17 @@ import java.util.*;
 public class Main {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
-//        int n = scan.nextInt();
+        int n = scan.nextInt();
 //        int[] array = new int[n];
 //        for(int i = 0; i < n; i++){
 //            array[i] = scan.nextInt();
 //        }
 //        longestBiotonicSubsequence(array);
-        String str1 = scan.nextLine();
-        String str2 = scan.nextLine();
-        String str3 = scan.nextLine();
-        LCSIn3String(str1, str2, str3);
+//        String str1 = scan.nextLine();
+//        String str2 = scan.nextLine();
+//        String str3 = scan.nextLine();
+//        LCSIn3String(str1, str2, str3);
+        friendPairingProblem(n);
     }
 
     public static void uglyNumbers(int n){
@@ -43,5 +44,14 @@ public class Main {
         int answer = utility.longestCommonSubsequenceOf3Strings(str1, str2, str3);
         System.out.println("LCSIn3String : answer :: " + answer);
     }
+
+    public static void friendPairingProblem(int n){
+        Utlity_2D_DP utility = new Utlity_2D_DP();
+//        int answer = utility.friendsPairingProblem(n);
+        int answer = utility.friendsPairingProblemMemoization(n);
+        System.out.println("friendPairingProblem : answer :: " + answer);
+    }
+
+
 }
 

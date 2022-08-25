@@ -131,6 +131,14 @@ public class Utlity_2D_DP {
     }
 
     public int longestCommonSubsequenceOf3Strings(String str1, String str2, String str3){
+        /*
+        same as above
+
+        level: Medium-hard
+        GFG: https://www.geeksforgeeks.org/lcs-longest-common-subsequence-three-strings/
+
+        Approach: same as above
+         */
         int n = str1.length();
         int m = str2.length();
         int o = str3.length();
@@ -168,5 +176,41 @@ public class Utlity_2D_DP {
         }
 
         return dp[n-1][m-1][o-1];
+    }
+
+    public int friendsPairingProblem(int n){
+        /*
+        Given n friends, each one can remain single or can be paired up with some other friend.
+        Each friend can be paired only once.
+        Find out the total number of ways in which friends can remain single or can be paired up.
+
+        Level: Medium
+        GFG: https://www.geeksforgeeks.org/friends-pairing-problem/
+
+        Approach:
+            1. At every step, we have 2 option either to stay single and pair-up
+            2. if staying single, total combinations will be answer(n-1)
+            3. if pairing-up, we can pair with rest n-1 people, and rest n-2 people can have there combinations
+            4. Therefore, total would be answer(n) = answer(n-1) + (n-1)*answer(n-2);
+         */
+        if(n == 1 || n == 0){
+            return 1;
+        }
+        return friendsPairingProblem(n-1) + (n-1)*friendsPairingProblem(n-2);
+    }
+
+    public int friendsPairingProblemMemoization(int n){
+        int[] dp = new int[n+1];
+        return friendsPairingProblemMemoizationUtil(n, dp);
+    }
+
+    private int friendsPairingProblemMemoizationUtil(int n, int[] dp){
+        if(n == 1 || n == 0){
+            return dp[n] = 1;
+        }
+        if(dp[n] > 0){
+            return dp[n];
+        }
+        return dp[n] = friendsPairingProblemMemoizationUtil(n-1, dp) + (n-1)*friendsPairingProblemMemoizationUtil(n-2, dp);
     }
 }
