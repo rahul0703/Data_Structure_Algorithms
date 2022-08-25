@@ -129,4 +129,44 @@ public class Utlity_2D_DP {
         }
         return dp[dp.length-1][dp[0].length-1];
     }
+
+    public int longestCommonSubsequenceOf3Strings(String str1, String str2, String str3){
+        int n = str1.length();
+        int m = str2.length();
+        int o = str3.length();
+        int[][][] dp = new int[n][m][o];
+
+        for(int i = 0; i < n; i++){
+            char ch1 = str1.charAt(i);
+            for(int j = 0; j < m; j++){
+                char ch2 = str2.charAt(j);
+                for(int k = 0; k < o; k++){
+                    char ch3 = str3.charAt(k);
+
+                    if(i == 0 && j == 0 && k == 0){
+                        dp[i][j][k] = (ch1 == ch2 && ch2 == ch3 ? 1 : 0);
+                        continue;
+                    }
+                    if(i == 0){
+                        dp[i][j][k] = (ch1 == ch2 && ch2 == ch3 ? 1 : (j == 0 ? dp[i][j][k-1] : (k == 0 ? dp[i][j-1][k] : dp[i][j-1][k-1])));
+                        continue;
+                    }
+                    if(j == 0){
+                        dp[i][j][k] = (ch1 == ch2 && ch2 == ch3 ? 1 : (i == 0 ? dp[i][j][k-1] : (k == 0 ? dp[i-1][j][k] : dp[i-1][j][k-1])));
+                        continue;
+                    }
+                    if(k == 0){
+                        dp[i][j][k] = (ch1 == ch2 && ch2 == ch3 ? 1 : (j == 0 ? dp[i-1][j][k] : (i == 0 ? dp[i][j-1][k] : dp[i-1][j-1][k])));
+                        continue;
+                    }
+                    dp[i][j][k] = Math.max(dp[i][j][k-1], Math.max(dp[i-1][j][k], dp[i][j-1][k]));
+
+                    dp[i][j][k] = ch1 == ch2 && ch1 == ch3 ? Math.max(dp[i][j][k], dp[i-1][j-1][k-1] + 1) : dp[i][j][k];
+//                    System.out.println(dp[i][j][k]);
+                }
+            }
+        }
+
+        return dp[n-1][m-1][o-1];
+    }
 }
