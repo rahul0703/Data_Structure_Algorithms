@@ -213,4 +213,99 @@ public class Utlity_2D_DP {
         }
         return dp[n] = friendsPairingProblemMemoizationUtil(n-1, dp) + (n-1)*friendsPairingProblemMemoizationUtil(n-2, dp);
     }
+
+    public int numberOfWaysToPartNumInKSubset(int n, int k){
+        if(n < k){
+            return -1;
+        }
+        if(n == 0 || k == 0){
+            return 0;
+        }
+        if(n == k){
+            return 1;
+        }
+        return numberOfWaysToPartNumInKSubset(n-1, k)*k + numberOfWaysToPartNumInKSubset(n-1, k-1);
+    }
+
+    public int numberOfWaysToPartNumInKSubsetDP(int n, int k){
+        /*
+        Given two numbers n and k where n represents a number of elements in a set,
+        find a number of ways to partition the set into k subsets.
+
+        Level: Medium
+        GFG: https://www.geeksforgeeks.org/count-number-of-ways-to-partition-a-set-into-k-subsets/
+
+        Approach: let say, n = 4, k = 2
+        here, 4 have 2 option
+        1. To have his new subset: here, we need to calculate (n=3, k=1)
+        2. To add into previous subset: here, we need to calculate (n=3, k=2).
+            but, here for every answer set n=4 have total k-subset to get add into.
+            Therefore, for n=4, here answer will be k*(n=3,k=2)
+        3. Total answer will be (n=4,k=2) : (n=3,k=1) + k*(n=3,k=2);
+         */
+        int[][] dp = new int[n+1][k+1];
+        for(int i = 0; i <= n; i++){
+            for(int j = 0; j <= k; j++){
+                dp[i][j] = -1;
+            }
+        }
+        return numberOfWaysToPartNumInKSubsetDPUtil(n, k, dp);
+    }
+
+    public int numberOfWaysToPartNumInKSubsetDPUtil(int n, int k, int[][] dp){
+        if(n < k){
+            return -1;
+        }
+        if(n == 0 || k == 0){
+            return 0;
+        }
+        if(n == k){
+            return 1;
+        }
+        if(dp[n][k] != -1){
+            return dp[n][k];
+        }
+        return numberOfWaysToPartNumInKSubsetDPUtil(n-1, k, dp)*k + numberOfWaysToPartNumInKSubsetDPUtil(n-1, k-1, dp);
+    }
+
+    public int longestPalindromeSubseq(String s) {
+        /*
+        Given a string s, find the longest palindromic subsequence's length in s.
+        A subsequence is a sequence that can be derived from another sequence by deleting some
+        or no elements without changing the order of the remaining elements.
+
+        Level: Medium
+        Leetcode: https://leetcode.com/problems/longest-palindromic-subsequence/
+
+        Approach: If you notice carefully, LPS is nothing but an extended version of LCS.
+        here, we find LCS of string and reverse(string).
+         */
+        int n = s.length();
+        int[][] dp = new int[n][n];
+
+        for(int i = 0; i < n; i++){
+            char ch1 = s.charAt(i);
+            for(int j = 0; j < n; j++){
+                char ch2 = s.charAt(n - j - 1);
+
+                if(i == 0 && j == 0){
+                    dp[i][j] = ch1 == ch2 ? 1 : 0;
+                    continue;
+                }
+                if(i == 0){
+                    dp[i][j] = ch1 == ch2 ? 1 : dp[i][j-1];
+                    continue;
+                }
+                if(j == 0){
+                    dp[i][j] = ch1 == ch2 ? 1 : dp[i-1][j];
+                    continue;
+                }
+
+                dp[i][j] = Math.max(dp[i][j-1], dp[i-1][j]);
+                dp[i][j] = ch1 == ch2 ? Math.max(dp[i][j], dp[i-1][j-1] + 1) : dp[i][j];
+            }
+        }
+
+        return dp[n-1][n-1];
+    }
 }

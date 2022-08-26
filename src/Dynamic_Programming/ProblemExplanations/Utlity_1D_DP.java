@@ -1,5 +1,7 @@
 package Dynamic_Programming.ProblemExplanations;
 
+import Dynamic_Programming.Types.Pair_buildingBridges;
+
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
@@ -237,6 +239,29 @@ public class Utlity_1D_DP {
         return ans;
     }
 
-
+    public int buildingBridges(int[] north, int[] south){
+        if(south.length == 0 || south.length == 1){
+            return south.length;
+        }
+        Pair_buildingBridges[] array = new Pair_buildingBridges[north.length];
+        for(int i = 0;i < north.length; i++){
+            array[i] = new Pair_buildingBridges(north[i], south[i]);
+        }
+        Arrays.sort(array);
+        int[] dp = new int[north.length];
+        dp[0] = 1;
+        int ans = 1;
+        for(int i = 1; i < north.length; i++){
+            Pair_buildingBridges pairIter = array[i];
+            int southIter = pairIter.getSouth();
+            int max = 1;
+            for(int j = 0; j < i; j++){
+                max = array[j].getSouth() < southIter ? Math.max(max, dp[j] + 1) : max;
+            }
+            dp[i] = max;
+            ans =Math.max(ans, dp[i]);
+        }
+        return ans;
+    }
 
 }

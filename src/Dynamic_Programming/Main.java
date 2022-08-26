@@ -13,12 +13,19 @@ public class Main {
 //        for(int i = 0; i < n; i++){
 //            array[i] = scan.nextInt();
 //        }
+        int m = scan.nextInt();
+//        int[] array2 = new int[m];
+//        for(int i = 0; i < m; i++){
+//            array2[i] = scan.nextInt();
+//        }
+//        buildingBridges(array, array2);
 //        longestBiotonicSubsequence(array);
 //        String str1 = scan.nextLine();
 //        String str2 = scan.nextLine();
 //        String str3 = scan.nextLine();
 //        LCSIn3String(str1, str2, str3);
-        friendPairingProblem(n);
+//        friendPairingProblem(n);
+        numberOfWaysToPartInKSubset(n, m);
     }
 
     public static void uglyNumbers(int n){
@@ -52,6 +59,17 @@ public class Main {
         System.out.println("friendPairingProblem : answer :: " + answer);
     }
 
+    public static void buildingBridges(int[] north, int[] south){
+        Utlity_1D_DP utility = new Utlity_1D_DP();
+        int answer = utility.buildingBridges(north, south);
+        System.out.println("buildingBridges : answer :: " + answer);
+    }
+
+    public static void numberOfWaysToPartInKSubset(int n, int k){
+        Utlity_2D_DP utility = new Utlity_2D_DP();
+        int answer = utility.numberOfWaysToPartNumInKSubset(n, k);
+        System.out.println("numberOfWaysToPartInKSubset : answer :: " + answer);
+    }
 
 }
 
