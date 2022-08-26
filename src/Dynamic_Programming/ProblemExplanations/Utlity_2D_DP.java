@@ -213,4 +213,45 @@ public class Utlity_2D_DP {
         }
         return dp[n] = friendsPairingProblemMemoizationUtil(n-1, dp) + (n-1)*friendsPairingProblemMemoizationUtil(n-2, dp);
     }
+
+    public int numberOfWaysToPartNumInKSubset(int n, int k){
+        if(n < k){
+            return -1;
+        }
+        if(n == 0 || k == 0){
+            return 0;
+        }
+        if(n == k){
+            return 1;
+        }
+        return numberOfWaysToPartNumInKSubset(n-1, k)*k + numberOfWaysToPartNumInKSubset(n-1, k-1);
+    }
+
+    public int numberOfWaysToPartNumInKSubsetDP(int n, int k){
+        int[][] dp = new int[n+1][k+1];
+        for(int i = 0; i <= n; i++){
+            for(int j = 0; j <= k; j++){
+                dp[i][j] = -1;
+            }
+        }
+        return numberOfWaysToPartNumInKSubsetDPUtil(n, k, dp);
+    }
+
+    public int numberOfWaysToPartNumInKSubsetDPUtil(int n, int k, int[][] dp){
+        if(n < k){
+            return -1;
+        }
+        if(n == 0 || k == 0){
+            return 0;
+        }
+        if(n == k){
+            return 1;
+        }
+        if(dp[n][k] != -1){
+            return dp[n][k];
+        }
+        return numberOfWaysToPartNumInKSubsetDPUtil(n-1, k, dp)*k + numberOfWaysToPartNumInKSubsetDPUtil(n-1, k-1, dp);
+    }
+
+
 }
