@@ -252,7 +252,7 @@ public class Utlity_2D_DP {
         return numberOfWaysToPartNumInKSubsetDPUtil(n, k, dp);
     }
 
-    public int numberOfWaysToPartNumInKSubsetDPUtil(int n, int k, int[][] dp){
+    private int numberOfWaysToPartNumInKSubsetDPUtil(int n, int k, int[][] dp){
         if(n < k){
             return -1;
         }
@@ -308,4 +308,52 @@ public class Utlity_2D_DP {
 
         return dp[n-1][n-1];
     }
+
+    public int superEggDrop(int k, int n) {
+        /*
+        You are given k identical eggs, and you have access to a building with n floors labeled from 1 to n.
+        You know that there exists a floor f where 0 <= f <= n such that any egg dropped at a
+        floor higher than f will break, and any egg dropped at or below floor f will not break.
+        Each move, you may take an unbroken egg and drop it from any floor x
+        (where 1 <= x <= n). If the egg breaks, you can no longer use it.
+        However, if the egg does not break, you may reuse it in future moves.
+        Return the minimum number of moves that you need to determine with certainty what the value of f is.
+
+        Level: Hard
+        Leetcode: https://leetcode.com/problems/super-egg-drop/
+
+        Approach:
+        1. At every floor, we have 2 possibility for k eggs and n floor
+            a. Egg breaks: we have k-1 eggs and answer lies between 1 to i-1 floor.
+            b. not break: we have k eggs and answer lies between n-i floor.
+        2. But, we have to take maximum of both cases as we need to consider worst case scenario.
+        3. But, we will take min of all the floor.
+        4. Therefore, (k, i) = Math.min(floor 1:n(Math.max(k-1, i-1), Math.max(k, n-i)) + 1 (for self)
+         */
+        int[][] dp = new int[k+1][n+1];
+        for(int i = 0; i <= k; i++){
+            for(int j = 0; j <= n; j++){
+                dp[i][j] = -1;
+            }
+        }
+        return eggDrop(k, n, dp);
+    }
+    private int eggDrop(int k, int n, int[][] dp){
+        if(k == 1){
+            return n;
+        }
+        if(n == 1 || n == 0){
+            return n;
+        }
+        if(dp[k][n] != -1){
+            return dp[k][n];
+        }
+        int ans = n;
+        for(int i = 1; i <= n; i++){
+            ans = Math.min(ans, Math.max(eggDrop(k-1, i-1, dp), eggDrop(k, n-i, dp)));
+        }
+        return dp[k][n] = ans+1;
+    }
+
+
 }
