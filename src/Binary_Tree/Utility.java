@@ -3,6 +3,7 @@ package Binary_Tree;
 import Binary_Tree.Types.Node;
 import Binary_Tree.Types.Node_randomPointer;
 
+import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -141,6 +142,15 @@ public class Utility {
     }
     public ArrayList<Integer> inorder(Node node){
         ArrayList<Integer> list = new ArrayList<>();
+        inorder(node, list);
         return list;
+    }
+    private void inorder(Node node, ArrayList<Integer> list){
+        if(node == null){
+            return;
+        }
+        inorder(node.getLeft(), list);
+        list.add(node.getVal());
+        inorder(node.getRight(), list);
     }
 }
