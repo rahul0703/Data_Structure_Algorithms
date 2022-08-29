@@ -1,5 +1,6 @@
 package Binary_Tree;
 
+import Binary_Tree.Implementation.Morris_Inorder_Traversal;
 import Binary_Tree.Types.Node;
 import Binary_Tree.Types.Node_randomPointer;
 
@@ -16,11 +17,13 @@ public class Main {
         tree.getLeft().setRight(new Node(5));
         tree.getRight().setLeft(new Node(7));
         tree.getRight().setRight(new Node(8));
+        tree.getRight().getRight().setLeft(new Node(9));
+        tree.getRight().getRight().setRight(new Node(10));
 //        tree.setRandom(tree.getLeft().getRight());
 //        tree.getLeft().getLeft().setRandom(tree);
 //        tree.getLeft().getRight().setRandom(tree.getRight());
 //        clone_with_random_pointer(tree);
-        levelOrderTraversal(tree);
+        morris_inorder_travel(tree);
     }
 
     public static void clone_with_random_pointer(Node_randomPointer node){
@@ -50,6 +53,14 @@ public class Main {
         Utility utility = new Utility();
         ArrayList<Integer> list = utility.levelOrderTraversal(root);
         for(int num : list){
+            System.out.print(num + " ");
+        }
+    }
+
+    public static void morris_inorder_travel(Node root){
+        Morris_Inorder_Traversal moris_inorder = new Morris_Inorder_Traversal();
+        ArrayList<Integer> answer = moris_inorder.morrisInorderTraversal(root);
+        for(int num : answer){
             System.out.print(num + " ");
         }
     }
