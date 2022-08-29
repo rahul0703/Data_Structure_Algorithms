@@ -251,6 +251,12 @@ public class Utility {
     }
 
     public ArrayList<Integer> levelOrderTraversal(Node root){
+        /*
+        level order traversal
+        level: medium
+        approach:
+            1. use queue to store the left and right node.
+         */
         Queue<Node> queue = new LinkedList<>();
         ArrayList<Integer> answer = new ArrayList<>();
         queue.add(root);
