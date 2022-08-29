@@ -372,7 +372,6 @@ public class Utility {
             set.add(node);
             maxLevel = level;
         }
-
         if(node.getLeft() != null && !set.contains(node) && level > maxLevel){
             list.add(node.getVal());
             set.add(node);
