@@ -14,11 +14,13 @@ public class Main {
         tree.setRight(new Node(3));
         tree.getLeft().setLeft(new Node(4));
         tree.getLeft().setRight(new Node(5));
+        tree.getRight().setLeft(new Node(7));
+        tree.getRight().setRight(new Node(8));
 //        tree.setRandom(tree.getLeft().getRight());
 //        tree.getLeft().getLeft().setRandom(tree);
 //        tree.getLeft().getRight().setRandom(tree.getRight());
 //        clone_with_random_pointer(tree);
-        inorder(tree);
+        levelOrderTraversal(tree);
     }
 
     public static void clone_with_random_pointer(Node_randomPointer node){
@@ -29,7 +31,24 @@ public class Main {
     }
     public static void inorder(Node root){
         Utility utility = new Utility();
-        ArrayList<Integer> list =utility.inorder(root);
+//        ArrayList<Integer> list =utility.inorder(root);
+        ArrayList<Integer> list = utility.inorderWithoutRecursion(root);
+        for(int num : list){
+            System.out.print(num + " ");
+        }
+    }
+    public static void preorder(Node root){
+        Utility utility = new Utility();
+//        ArrayList<Integer> list =utility.inorder(root);
+        ArrayList<Integer> list = utility.preorderWithoutRecursion(root);
+        for(int num : list){
+            System.out.print(num + " ");
+        }
+    }
+
+    public static void levelOrderTraversal(Node root){
+        Utility utility = new Utility();
+        ArrayList<Integer> list = utility.levelOrderTraversal(root);
         for(int num : list){
             System.out.print(num + " ");
         }

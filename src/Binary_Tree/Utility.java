@@ -1,13 +1,13 @@
 package Binary_Tree;
 
 import Binary_Tree.Types.Node;
+import Binary_Tree.Types.NodeWithTask;
 import Binary_Tree.Types.Node_randomPointer;
+import com.sun.javafx.scene.control.skin.IntegerFieldSkin;
 
 import java.sql.ClientInfoStatus;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Utility {
     public void Print_Tree_Pretty(Node node){
@@ -152,5 +152,119 @@ public class Utility {
         inorder(node.getLeft(), list);
         list.add(node.getVal());
         inorder(node.getRight(), list);
+    }
+    public ArrayList<Integer> preorder(Node node){
+        ArrayList<Integer> answer = new ArrayList<>();
+        preorder(node, answer);
+        return answer;
+    }
+    private void preorder(Node node, ArrayList<Integer> list){
+        if(node == null){
+            return;
+        }
+        list.add(node.getVal());
+        preorder(node.getLeft(), list);
+        preorder(node.getRight(), list);
+    }
+    public ArrayList<Integer> postorder(Node node){
+        ArrayList<Integer> list = new ArrayList<>();
+        postorder(node, list);
+        return list;
+    }
+    private void postorder(Node node, ArrayList<Integer> list){
+        if(node == null){
+            return;
+        }
+        postorder(node.getLeft());
+        postorder(node.getRight());
+        list.add(node.getVal());
+    }
+    public ArrayList<Integer> inorderWithoutRecursion(Node root){
+        /*
+        inorder without recursion
+
+        level: medium
+
+        Approach: use stack keeping track of task
+            task1: travel for left subtree
+            task2: print value
+            task3: travel for right subtree
+         */
+        Stack<NodeWithTask> stack = new Stack<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        NodeWithTask rootNode = new NodeWithTask(root, 0);
+        stack.push(rootNode);
+        while(!stack.isEmpty()){
+            NodeWithTask popNode = stack.pop();
+            int task = popNode.getTask();
+            Node node = popNode.getNode();
+
+            if(task == 0){
+                popNode.setTask(1);
+                stack.push(popNode);
+                if(node.getLeft() != null){
+                    stack.push(new NodeWithTask(node.getLeft(), 0));
+                }
+            }else if(task ==1){
+                list.add(node.getVal());
+                popNode.setTask(2);
+                stack.push(popNode);
+            }else{
+                if(node.getRight() != null){
+                    stack.push(new NodeWithTask(node.getRight(), 0));
+                }
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<Integer> preorderWithoutRecursion(Node root){
+        /*
+            Iterative preorder
+            level: medium
+         */
+        Stack<NodeWithTask> stack = new Stack<>();
+        ArrayList<Integer> answer = new ArrayList<>();
+        NodeWithTask rootWithTask = new NodeWithTask(root, 0);
+        stack.push(rootWithTask);
+        while(!stack.isEmpty()){
+            NodeWithTask popNode = stack.pop();
+            Node node = popNode.getNode();
+            int task = popNode.getTask();
+            if(task == 0){
+                answer.add(node.getVal());
+                popNode.setTask(1);
+                stack.push(popNode);
+            }else if(task == 1){
+                popNode.setTask(2);
+                stack.push(popNode);
+                if(node.getLeft() != null){
+                    stack.push(new NodeWithTask(node.getLeft(), 0));
+                }
+            }else{
+                if(node.getRight() != null){
+                    stack.push(new NodeWithTask(node.getRight(), 0));
+                }
+            }
+        }
+        return answer;
+    }
+
+    public ArrayList<Integer> levelOrderTraversal(Node root){
+        Queue<Node> queue = new LinkedList<>();
+        ArrayList<Integer> answer = new ArrayList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            Node pollNode = queue.poll();
+            answer.add(pollNode.getVal());
+
+            if(pollNode.getLeft() != null){
+                queue.add(pollNode.getLeft());
+            }
+            if(pollNode.getRight() != null){
+                queue.add(pollNode.getRight());
+            }
+        }
+        return answer;
     }
 }
