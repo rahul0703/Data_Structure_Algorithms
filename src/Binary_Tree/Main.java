@@ -23,7 +23,7 @@ public class Main {
 //        tree.getLeft().getLeft().setRandom(tree);
 //        tree.getLeft().getRight().setRandom(tree.getRight());
 //        clone_with_random_pointer(tree);
-        morris_inorder_travel(tree);
+        diagonal_traversal(tree);
     }
 
     public static void clone_with_random_pointer(Node_randomPointer node){
@@ -64,4 +64,16 @@ public class Main {
             System.out.print(num + " ");
         }
     }
+
+    public static void diagonal_traversal(Node root){
+        Utility utility = new Utility();
+        ArrayList<ArrayList<Integer>> list = utility.diagonal_traversal(root);
+        for(ArrayList<Integer> subList : list){
+            for (int num : subList){
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+    }
+
 }

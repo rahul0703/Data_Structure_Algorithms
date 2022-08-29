@@ -5,6 +5,7 @@ import Binary_Tree.Types.NodeWithTask;
 import Binary_Tree.Types.Node_randomPointer;
 import com.sun.javafx.scene.control.skin.IntegerFieldSkin;
 
+import java.sql.Array;
 import java.sql.ClientInfoStatus;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -273,4 +274,53 @@ public class Utility {
         }
         return answer;
     }
+
+    public ArrayList<ArrayList<Integer>> diagonal_traversal(Node root){
+        /*
+        Consider lines with a slope of -1 that cross through nodes.
+        Print all diagonal elements in a binary tree that belong to the same line, given a binary tree.
+
+        Level: medium
+        gfg: https://www.geeksforgeeks.org/diagonal-traversal-of-binary-tree/
+
+        Approach:
+            1. use hashmap to store the index of x and y co-ordinate.
+            2. u can use treemap to maintain order of keys.
+         */
+        TreeMap<Integer, TreeMap<Integer, ArrayList<Integer>>> map = new TreeMap<>();
+        diagonal_traversal_util(root, map, 0, 0);
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for(Integer key : map.keySet()){
+            TreeMap<Integer, ArrayList<Integer>> subMap = map.get(key);
+            ArrayList<Integer> subList = new ArrayList<>();
+            for(int subKey : subMap.keySet()){
+                ArrayList<Integer> subMapList = subMap.get(subKey);
+                for(int num : subMapList){
+                    subList.add(num);
+                }
+            }
+            list.add(subList);
+        }
+        return list;
+    }
+
+    private void diagonal_traversal_util(Node root, TreeMap<Integer, TreeMap<Integer, ArrayList<Integer>>> map, int leftIdx, int rightIdx){
+        if(root == null){
+            return;
+        }
+        if(!map.containsKey(leftIdx)){
+            map.put(leftIdx, new TreeMap<Integer, ArrayList<Integer>>());
+        }
+        if(!map.get(leftIdx).containsKey(rightIdx)){
+            map.get(leftIdx).put(rightIdx, new ArrayList<Integer>());
+        }
+        if(root.getLeft() != null){
+            diagonal_traversal_util(root.getLeft(), map, leftIdx+1, rightIdx);
+        }
+
+        map.get(leftIdx).get(rightIdx).add(root.getVal());
+        diagonal_traversal_util(root.getRight(), map, leftIdx, rightIdx + 1);
+    }
+
+
 }
