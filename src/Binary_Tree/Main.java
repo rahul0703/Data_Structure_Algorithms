@@ -23,7 +23,7 @@ public class Main {
 //        tree.getLeft().getLeft().setRandom(tree);
 //        tree.getLeft().getRight().setRandom(tree.getRight());
 //        clone_with_random_pointer(tree);
-        diagonal_traversal(tree);
+        boundary_Traversal(tree);
     }
 
     public static void clone_with_random_pointer(Node_randomPointer node){
@@ -64,7 +64,6 @@ public class Main {
             System.out.print(num + " ");
         }
     }
-
     public static void diagonal_traversal(Node root){
         Utility utility = new Utility();
         ArrayList<ArrayList<Integer>> list = utility.diagonal_traversal(root);
@@ -75,5 +74,13 @@ public class Main {
             System.out.println();
         }
     }
+    public static void boundary_Traversal(Node root){
+        Utility utility = new Utility();
+        ArrayList<Integer> list = utility.boundary_traversal(root);
+        for(int num : list){
+            System.out.print(num + " ");
+        }
+    }
+
 
 }

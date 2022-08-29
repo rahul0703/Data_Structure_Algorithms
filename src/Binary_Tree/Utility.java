@@ -322,5 +322,89 @@ public class Utility {
         diagonal_traversal_util(root.getRight(), map, leftIdx, rightIdx + 1);
     }
 
+    public ArrayList<ArrayList<Integer>> vertical_level_traversal(Node node){
+        /*
+
+         */
+        return new ArrayList<>();
+    }
+
+    int maxLevel = -1;
+    int maxLevel2 = 0;
+    public ArrayList<Integer> boundary_traversal(Node node){
+        /*
+        Given a binary tree, print boundary nodes of the binary tree Anti-Clockwise starting from the root.
+        The boundary includes left boundary, leaves, and right boundary in order without duplicate nodes.
+        (The values of the nodes may still be duplicates.)
+        The left boundary is defined as the path from the root to the left-most node.
+        The right boundary is defined as the path from the root to the right-most node.
+        If the root doesn’t have left subtree or right subtree, then the root itself is left boundary or right boundary.
+        Note this definition only applies to the input binary tree, and not apply to any subtrees.
+        The left-most node is defined as a leaf node you could reach when you always firstly travel to the left subtree if it exists.
+        If not, travel to the right subtree. Repeat until you reach a leaf node.
+        The right-most node is also defined in the same way with left and right exchanged.
+
+        Level: Medium-hard
+        GFG: https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/
+
+        Approach: 1. travel from top to left node while maintaining count of depth.
+                   2. If leaf node, then add.
+                   3. if boundary non-leaf node with 1st time visited at that depth, then add
+                   4. Travel from top to right while maintaining count of depth.
+                   5. If already added don't add or else add as per above condition.
+         */
+        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Integer> list2 = new ArrayList<>();
+        HashSet<Node> set = new HashSet<>();
+        boundary_traversal_util(node, list, set, 0);
+        boundary_traversal_util2(node, list2, set, 0);
+        Collections.reverse(list2);
+        list.addAll(list2);
+        return list;
+    }
+
+    private void boundary_traversal_util(Node node, ArrayList<Integer> list, HashSet<Node> set, int level){
+        if(node == null){
+            return;
+        }
+        if(node.getLeft() == null && node.getRight() == null && !set.contains(node)){
+            list.add(node.getVal());
+            set.add(node);
+            maxLevel = level;
+        }
+
+        if(node.getLeft() != null && !set.contains(node) && level > maxLevel){
+            list.add(node.getVal());
+            set.add(node);
+            maxLevel = level;
+        }else if(node.getRight() != null && !set.contains(node) && level > maxLevel){
+            list.add(node.getVal());
+            set.add(node);
+            maxLevel = level;
+        }
+
+        boundary_traversal_util(node.getLeft(), list, set, level+1);
+        boundary_traversal_util(node.getRight(), list, set, level+1);
+    }
+
+    private void boundary_traversal_util2(Node node, ArrayList<Integer> list, HashSet<Node> set, int level){
+        if(node == null){
+            return;
+        }
+        if(node.getLeft() == null && node.getRight() == null){
+            return;
+        }
+        if(node.getRight() != null && !set.contains(node) && level > maxLevel2){
+            list.add(node.getVal());
+            set.add(node);
+            maxLevel2 = level;
+        }else if(node.getLeft() != null && !set.contains(node) && level > maxLevel2){
+            list.add(node.getVal());
+            set.add(node);
+            maxLevel2 = level;
+        }
+        boundary_traversal_util2(node.getRight(), list, set, level+1);
+        boundary_traversal_util2(node.getLeft(), list, set, level+1);
+    }
 
 }
