@@ -15,15 +15,21 @@ public class Main {
         tree.setRight(new Node(3));
         tree.getLeft().setLeft(new Node(4));
         tree.getLeft().setRight(new Node(5));
-        tree.getRight().setLeft(new Node(7));
-        tree.getRight().setRight(new Node(8));
-        tree.getRight().getRight().setLeft(new Node(9));
-        tree.getRight().getRight().setRight(new Node(10));
+        tree.getRight().setLeft(new Node(6));
+        tree.getRight().setRight(new Node(7));
+        tree.getLeft().getLeft().setLeft(new Node(8));
+        tree.getLeft().getLeft().setRight(new Node(9));
+        tree.getLeft().getRight().setLeft(new Node(10));
+        tree.getLeft().getRight().setRight(new Node(11));
+        tree.getRight().getLeft().setLeft(new Node(12));
+        tree.getRight().getLeft().setRight(new Node(13));
+        tree.getRight().getRight().setLeft(new Node(14));
+        tree.getRight().getRight().setRight(new Node(15));
 //        tree.setRandom(tree.getLeft().getRight());
 //        tree.getLeft().getLeft().setRandom(tree);
 //        tree.getLeft().getRight().setRandom(tree.getRight());
 //        clone_with_random_pointer(tree);
-        boundary_Traversal(tree);
+        perfect_level_order_traversal(tree);
     }
 
     public static void clone_with_random_pointer(Node_randomPointer node){
@@ -82,5 +88,11 @@ public class Main {
         }
     }
 
-
+    public static void perfect_level_order_traversal(Node root){
+        Utility utility = new Utility();
+        ArrayList<Integer> list = utility.perfect_binary_tree_level_order(root);
+        for(int num : list){
+            System.out.print(num + " ");
+        }
+    }
 }

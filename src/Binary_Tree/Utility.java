@@ -4,6 +4,7 @@ import Binary_Tree.Types.Node;
 import Binary_Tree.Types.NodeWithTask;
 import Binary_Tree.Types.Node_randomPointer;
 import com.sun.javafx.scene.control.skin.IntegerFieldSkin;
+import sun.java2d.pipe.OutlineTextRenderer;
 
 import java.sql.Array;
 import java.sql.ClientInfoStatus;
@@ -406,4 +407,43 @@ public class Utility {
         boundary_traversal_util2(node.getLeft(), list, set, level+1);
     }
 
+    public ArrayList<Integer> perfect_binary_tree_level_order(Node node){
+        /*
+            for a perfect binary tree arranged, let say from 1-15, print according to this order
+            1 2 3 4 7 5 6 8 15 9 14 10 13 11 12
+
+            level: medium-hard
+            gfg: https://www.geeksforgeeks.org/perfect-binary-tree-specific-level-order-traversal/
+
+            Approach:
+                1. we will approach 2 element at same time, and print the left of 1st and right of 2nd. Then right of 1st and left of 2nd.
+                2. Will add the children in queue in same way.
+                3. will not be applicable for 1st element or root node. As it is single node.
+         */
+        ArrayList<Integer> list = new ArrayList<>();
+        Queue<Node> queue = new LinkedList<>();
+        if(node == null){
+            return list;
+        }
+        list.add(node.getVal());
+        if(node.getLeft() != null){
+            queue.add(node.getLeft());
+            queue.add(node.getRight());
+        }
+        while(!queue.isEmpty()){
+            Node left = queue.poll();
+            Node right = queue.poll();
+
+            list.add(left.getVal());
+            list.add(right.getVal());
+
+            if(left.getLeft() != null){
+                queue.add(left.getLeft());
+                queue.add(right.getRight());
+                queue.add(left.getRight());
+                queue.add(right.getLeft());
+            }
+        }
+        return list;
+    }
 }
