@@ -3,15 +3,10 @@ package Binary_Tree;
 import Binary_Tree.Types.Node;
 import Binary_Tree.Types.NodeWithTask;
 import Binary_Tree.Types.Node_randomPointer;
-import com.sun.javafx.scene.control.skin.IntegerFieldSkin;
-import sun.java2d.pipe.OutlineTextRenderer;
 
-import java.sql.Array;
-import java.sql.ClientInfoStatus;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 
-public class Utility {
+public class Utility_medium {
     public void Print_Tree_Pretty(Node node){
         if(node == null){
             return;
@@ -32,59 +27,7 @@ public class Utility {
         Print_Tree_Pretty(node.getLeft());
         Print_Tree_Pretty(node.getRight());
     }
-    private HashMap<Node_randomPointer, Node_randomPointer> clone_tree_with_random_pointer_map;
-    public Node_randomPointer clone_Tree_with_random_pointer(Node_randomPointer node){
-        /*
-            Given a Binary Tree where every node has the following structure.
-            struct node {
-                int key;
-                struct node *left,*right,*random;
-            }
-            The random pointer points to any random node of the binary tree and can
-            even point to NULL, clone the given binary tree.
-         */
-        clone_tree_with_random_pointer_map = new HashMap<>();
-        Node_randomPointer root = cloneTree(node, null);
-        makeCopy(root);
-        return root;
-    }
-    private Node_randomPointer cloneTree(Node_randomPointer node, Node_randomPointer newNode){
 
-        if(node == null){
-            return null;
-        }
-        newNode = new Node_randomPointer(node.getVal());
-        clone_tree_with_random_pointer_map.put(node, newNode);
-        if(node.getLeft() != null && !clone_tree_with_random_pointer_map.containsKey(node.getLeft())){
-            cloneTree(node.getLeft(), newNode.getLeft());
-        }
-        if(node.getRight()!= null && !clone_tree_with_random_pointer_map.containsKey(node.getRight())){
-            cloneTree(node.getRight(), newNode.getRight());
-        }
-        if(node.getRandom() != null && !clone_tree_with_random_pointer_map.containsKey(node.getRandom())){
-            Node_randomPointer ans = cloneTree(node.getRandom(), newNode.getRandom());
-            System.out.println(ans.getVal());
-            return ans;
-        }
-        System.out.println(newNode.getVal());
-        return newNode;
-    }
-    private Node_randomPointer makeCopy(Node_randomPointer newRoot){
-        for(Node_randomPointer node : clone_tree_with_random_pointer_map.keySet()){
-            Node_randomPointer copyNode = clone_tree_with_random_pointer_map.get(node);
-
-            if(node.getLeft() != null){
-                copyNode.setLeft(clone_tree_with_random_pointer_map.get(node.getLeft()));
-            }
-            if(node.getRight() != null){
-                copyNode.setRight(clone_tree_with_random_pointer_map.get(node.getRight()));
-            }
-            if(node.getRandom() != null){
-                copyNode.setRandom(clone_tree_with_random_pointer_map.get(node.getRandom()));
-            }
-        }
-        return newRoot;
-    }
     private HashMap<Integer, Integer> map;
     private Stack<Integer> stack;
     public int[] most_frequent_tree_sum(Node root){
@@ -330,83 +273,6 @@ public class Utility {
         return new ArrayList<>();
     }
 
-    int maxLevel = -1;
-    int maxLevel2 = 0;
-    public ArrayList<Integer> boundary_traversal(Node node){
-        /*
-        Given a binary tree, print boundary nodes of the binary tree Anti-Clockwise starting from the root.
-        The boundary includes left boundary, leaves, and right boundary in order without duplicate nodes.
-        (The values of the nodes may still be duplicates.)
-        The left boundary is defined as the path from the root to the left-most node.
-        The right boundary is defined as the path from the root to the right-most node.
-        If the root doesn’t have left subtree or right subtree, then the root itself is left boundary or right boundary.
-        Note this definition only applies to the input binary tree, and not apply to any subtrees.
-        The left-most node is defined as a leaf node you could reach when you always firstly travel to the left subtree if it exists.
-        If not, travel to the right subtree. Repeat until you reach a leaf node.
-        The right-most node is also defined in the same way with left and right exchanged.
-
-        Level: Medium-hard
-        GFG: https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/
-
-        Approach: 1. travel from top to left node while maintaining count of depth.
-                   2. If leaf node, then add.
-                   3. if boundary non-leaf node with 1st time visited at that depth, then add
-                   4. Travel from top to right while maintaining count of depth.
-                   5. If already added don't add or else add as per above condition.
-         */
-        ArrayList<Integer> list = new ArrayList<>();
-        ArrayList<Integer> list2 = new ArrayList<>();
-        HashSet<Node> set = new HashSet<>();
-        boundary_traversal_util(node, list, set, 0);
-        boundary_traversal_util2(node, list2, set, 0);
-        Collections.reverse(list2);
-        list.addAll(list2);
-        return list;
-    }
-
-    private void boundary_traversal_util(Node node, ArrayList<Integer> list, HashSet<Node> set, int level){
-        if(node == null){
-            return;
-        }
-        if(node.getLeft() == null && node.getRight() == null && !set.contains(node)){
-            list.add(node.getVal());
-            set.add(node);
-            maxLevel = level;
-        }
-        if(node.getLeft() != null && !set.contains(node) && level > maxLevel){
-            list.add(node.getVal());
-            set.add(node);
-            maxLevel = level;
-        }else if(node.getRight() != null && !set.contains(node) && level > maxLevel){
-            list.add(node.getVal());
-            set.add(node);
-            maxLevel = level;
-        }
-
-        boundary_traversal_util(node.getLeft(), list, set, level+1);
-        boundary_traversal_util(node.getRight(), list, set, level+1);
-    }
-
-    private void boundary_traversal_util2(Node node, ArrayList<Integer> list, HashSet<Node> set, int level){
-        if(node == null){
-            return;
-        }
-        if(node.getLeft() == null && node.getRight() == null){
-            return;
-        }
-        if(node.getRight() != null && !set.contains(node) && level > maxLevel2){
-            list.add(node.getVal());
-            set.add(node);
-            maxLevel2 = level;
-        }else if(node.getLeft() != null && !set.contains(node) && level > maxLevel2){
-            list.add(node.getVal());
-            set.add(node);
-            maxLevel2 = level;
-        }
-        boundary_traversal_util2(node.getRight(), list, set, level+1);
-        boundary_traversal_util2(node.getLeft(), list, set, level+1);
-    }
-
     public ArrayList<Integer> perfect_binary_tree_level_order(Node node){
         /*
             for a perfect binary tree arranged, let say from 1-15, print according to this order
@@ -446,4 +312,6 @@ public class Utility {
         }
         return list;
     }
+
+
 }

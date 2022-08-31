@@ -3,9 +3,12 @@ package Binary_Tree;
 import Binary_Tree.Implementation.Morris_Inorder_Traversal;
 import Binary_Tree.Types.Node;
 import Binary_Tree.Types.Node_randomPointer;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
@@ -29,35 +32,46 @@ public class Main {
 //        tree.getLeft().getLeft().setRandom(tree);
 //        tree.getLeft().getRight().setRandom(tree.getRight());
 //        clone_with_random_pointer(tree);
-        perfect_level_order_traversal(tree);
+//        perfect_level_order_traversal(tree);
+//        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 4, 8, 9, 5, 10, 11, 3, 7, 12, 13, 8, 14, 15));
+//        ArrayList<Boolean> list2 = new ArrayList<>(Arrays.asList(false, false, false, true, true, false, true, true, false, false, true, true,
+//                false, true, true));
+//        construct_special_tree_from_preorder_and_leaf_info(list, list2);
+        int mat[][] = {
+                { 0, 0, 0, 0, 0, 0 }, { 1, 0, 0, 0, 1, 0 },
+                { 0, 0, 0, 1, 0, 0 }, { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1, 0 }
+        };
+        construct_tree_from_ancester_matrix(mat);
     }
 
     public static void clone_with_random_pointer(Node_randomPointer node){
-        Utility utility = new Utility();
-        Node_randomPointer cloned_node = utility.clone_Tree_with_random_pointer(node);
-        utility.Print_Tree_Pretty(cloned_node);
-        utility.Print_Tree_Pretty(node);
+        Utility_hard utility_hard = new Utility_hard();
+        Utility_medium utility_medium = new Utility_medium();
+        Node_randomPointer cloned_node = utility_hard.clone_Tree_with_random_pointer(node);
+        utility_medium.Print_Tree_Pretty(cloned_node);
+        utility_medium.Print_Tree_Pretty(node);
     }
     public static void inorder(Node root){
-        Utility utility = new Utility();
+        Utility_medium utilityMedium = new Utility_medium();
 //        ArrayList<Integer> list =utility.inorder(root);
-        ArrayList<Integer> list = utility.inorderWithoutRecursion(root);
+        ArrayList<Integer> list = utilityMedium.inorderWithoutRecursion(root);
         for(int num : list){
             System.out.print(num + " ");
         }
     }
     public static void preorder(Node root){
-        Utility utility = new Utility();
+        Utility_medium utilityMedium = new Utility_medium();
 //        ArrayList<Integer> list =utility.inorder(root);
-        ArrayList<Integer> list = utility.preorderWithoutRecursion(root);
+        ArrayList<Integer> list = utilityMedium.preorderWithoutRecursion(root);
         for(int num : list){
             System.out.print(num + " ");
         }
     }
 
     public static void levelOrderTraversal(Node root){
-        Utility utility = new Utility();
-        ArrayList<Integer> list = utility.levelOrderTraversal(root);
+        Utility_medium utilityMedium = new Utility_medium();
+        ArrayList<Integer> list = utilityMedium.levelOrderTraversal(root);
         for(int num : list){
             System.out.print(num + " ");
         }
@@ -71,8 +85,8 @@ public class Main {
         }
     }
     public static void diagonal_traversal(Node root){
-        Utility utility = new Utility();
-        ArrayList<ArrayList<Integer>> list = utility.diagonal_traversal(root);
+        Utility_medium utilityMedium = new Utility_medium();
+        ArrayList<ArrayList<Integer>> list = utilityMedium.diagonal_traversal(root);
         for(ArrayList<Integer> subList : list){
             for (int num : subList){
                 System.out.print(num + " ");
@@ -81,18 +95,32 @@ public class Main {
         }
     }
     public static void boundary_Traversal(Node root){
-        Utility utility = new Utility();
-        ArrayList<Integer> list = utility.boundary_traversal(root);
+        Utility_hard utility_hard = new Utility_hard();
+        ArrayList<Integer> list = utility_hard.boundary_traversal(root);
         for(int num : list){
             System.out.print(num + " ");
         }
     }
 
     public static void perfect_level_order_traversal(Node root){
-        Utility utility = new Utility();
-        ArrayList<Integer> list = utility.perfect_binary_tree_level_order(root);
+        Utility_medium utilityMedium = new Utility_medium();
+        ArrayList<Integer> list = utilityMedium.perfect_binary_tree_level_order(root);
         for(int num : list){
             System.out.print(num + " ");
         }
+    }
+
+    public static void construct_special_tree_from_preorder_and_leaf_info(ArrayList<Integer> preorder, ArrayList<Boolean> isLeaf){
+        Utility_hard utility_hard = new Utility_hard();
+        Node root = utility_hard.construct_special_tree_from_preorder(preorder, isLeaf);
+        Utility_medium utility_medium = new Utility_medium();
+        utility_medium.Print_Tree_Pretty(root);
+    }
+
+    public static void construct_tree_from_ancester_matrix(int[][] matrix){
+        Utility_hard utility_hard = new Utility_hard();
+        Utility_medium utility_medium = new Utility_medium();
+        Node node = utility_hard.construct_tree_from_ancester_matrix(matrix);
+        utility_medium.Print_Tree_Pretty(node);
     }
 }
