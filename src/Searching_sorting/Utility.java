@@ -2,7 +2,6 @@ package Searching_sorting;
 
 import Searching_sorting.Implementation.Binary_search;
 import Searching_sorting.types.Pair;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.lang.reflect.Array;
 import java.util.*;
