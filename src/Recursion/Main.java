@@ -6,12 +6,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
-//        String str = scan.next();
-//        getSubsequence(str);
-//        int n = scan.nextInt();
-//        int m = scan.nextInt();
-        getMazePath(0, 0, 5, 5, 6, 6);
-//        getDicePath(start, end);
+//        getMazePath(0, 0, 5, 5, 6, 6);
+        nQueen(5);
     }
 
     public static void getSubsequence(String str){
@@ -37,4 +33,16 @@ public class Main {
             System.out.println(str);
         }
     }
+
+    public static void nQueen(int size){
+        Backtracking backtracking = new Backtracking();
+        ArrayList<ArrayList<String>> allNQueenPossibilities = backtracking.nQueen(size);
+        for(ArrayList<String> nQueenPossibility : allNQueenPossibilities){
+            for(String str : nQueenPossibility){
+                System.out.println(str);
+            }
+            System.out.println("============================================================");
+        }
+    }
+
 }
