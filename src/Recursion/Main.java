@@ -7,7 +7,8 @@ public class Main {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
 //        getMazePath(0, 0, 5, 5, 6, 6);
-        nQueen(5);
+//        nQueen(5);
+        lexico(1, 1000);
     }
 
     public static void getSubsequence(String str){
@@ -45,4 +46,8 @@ public class Main {
         }
     }
 
+    public static void lexico(int num, int max){
+        Recursion recursion = new Recursion();
+        recursion.printLexico(num, max);
+    }
 }

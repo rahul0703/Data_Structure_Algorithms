@@ -61,4 +61,19 @@ public class Recursion {
         }
         return ans;
     }
+
+    public void printLexico(int num, int max) {
+        if (num <= max) {
+            System.out.println(num);
+        }
+        for (int i = 0; i <= 9; i++) {
+            if (num * 10 + i <= max) {
+                printLexico(num * 10 + i, max);
+            }
+        }
+
+        if (num < 9) {
+            printLexico(num + 1, max);
+        }
+    }
 }
