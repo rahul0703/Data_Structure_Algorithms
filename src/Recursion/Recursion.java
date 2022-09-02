@@ -1,6 +1,7 @@
 package Recursion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Recursion {
 
@@ -19,6 +20,23 @@ public class Recursion {
         for(String subAnsStr : subAns){
             ans.add(subAnsStr);
             ans.add(ch + subAnsStr);
+        }
+        return ans;
+    }
+
+    public ArrayList<String> getDicePath(int start, int end){
+        if(start == end){
+            return new ArrayList<>(Arrays.asList("\n"));
+        }
+        if(start > end){
+            return new ArrayList<>();
+        }
+        ArrayList<String> ans = new ArrayList<>();
+        for(int dice = 1; dice <= 6; dice++){
+            ArrayList<String> subAns = getDicePath(start + dice, end);
+            for(String subAnsStr : subAns){
+                ans.add(subAnsStr + " " + dice);
+            }
         }
         return ans;
     }
