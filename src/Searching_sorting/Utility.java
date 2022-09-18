@@ -99,7 +99,7 @@ public class Utility {
 
     public ArrayList<Integer> missingAndRepeatingNumberInArray(int[] nums){
         /*
-            Given an unsorted array of size n. Array elements are in the range of 1 to n. One number from set {1, 2, …n}
+            Given an unsorted array of size n. Array.md elements are in the range of 1 to n. One number from set {1, 2, …n}
             is missing and one number occurs twice in the array. Find these two numbers
 
             GFG : https://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/

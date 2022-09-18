@@ -60,4 +60,10 @@ public class Backtracking {
         }
         return true;
     }
+
+    public ArrayList<ArrayList<String>> sudokuSolver(){
+        ansForSudokuSolver = new ArrayList<>();
+        return ansForSudokuSolver;
+    }
+    private ArrayList<ArrayList<String>> ansForSudokuSolver;
 }
